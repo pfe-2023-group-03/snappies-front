@@ -13,17 +13,8 @@ export class UsersComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getUsers();
-  }
-
-  loadUsers(): void {
-    this.userService.getUsers().subscribe(
-      (data: any) => {
-        this.users = data;
-      },
-      error => {
-        console.error('Error loading users', error);
-      }
-    );
+    this.userService.getUsers().subscribe((users) => {
+      this.users = users;
+    });
   }
 }
