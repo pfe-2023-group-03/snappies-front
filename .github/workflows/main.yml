@@ -39,4 +39,4 @@ jobs:
           with:
             branch: gh-pages
             folder: dist/snappies-front
-            token: ${{ secrets.GITHUB_TOKEN }}
+            token: ${{ secrets.ACCESS_TOKEN }}
