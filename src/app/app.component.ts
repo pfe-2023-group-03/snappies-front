@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
   title = 'snappies-front';
 }
