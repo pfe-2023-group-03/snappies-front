@@ -1,9 +1,9 @@
-name: Deploy Angular App to Oracle (Env Production)
+name: Deploy Angular App to Oracle (Env Development)
 
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker buildx build --platform linux/arm64/v8 -t ${{ secrets.DOCKER_USERNAME }}/pfe-front --push .
+          docker buildx build --platform linux/arm64/v8 -t ${{ secrets.DOCKER_USERNAME }}/pfe-front:dev --push .
 
       - name: SSH into Oracle Docker VPS and deploy
         uses: appleboy/ssh-action@master
@@ -33,7 +33,7 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/pfe-front
-            sudo docker stop pfe-front || true
-            sudo docker rm pfe-front || true
-            sudo docker run -d -p 80:80 --name pfe-front ${{ secrets.DOCKER_USERNAME }}/pfe-front
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/pfe-front:dev
+            sudo docker stop pfe-front-dev || true
+            sudo docker rm pfe-front-dev || true
+            sudo docker run -d -p 8080:80 --name pfe-front-dev ${{ secrets.DOCKER_USERNAME }}/pfe-front:dev
