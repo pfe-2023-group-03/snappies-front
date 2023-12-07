@@ -15,10 +15,16 @@ steps:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 
+- script: |
+    npm install -g @angular/cli
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/snappies-front'
     includeRootFolder: false
     archiveType: zip
     archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
