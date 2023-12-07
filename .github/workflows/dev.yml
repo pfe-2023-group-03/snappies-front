@@ -1,0 +1,39 @@
+name: Deploy Angular App to Oracle (Env Development)
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker buildx build --platform linux/arm64/v8 -t ${{ secrets.DOCKER_USERNAME }}/pfe-front:dev --push .
+
+      - name: SSH into Oracle Docker VPS and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/pfe-front:dev
+            sudo docker stop pfe-front-dev || true
+            sudo docker rm pfe-front-dev || true
+            sudo docker run -d -p 8080:80 --name pfe-front-dev ${{ secrets.DOCKER_USERNAME }}/pfe-front:dev
