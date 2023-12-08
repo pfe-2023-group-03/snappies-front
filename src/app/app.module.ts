@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersModule } from './users/users.module';
 import { NavbarModule } from './navbar/navbar.module'
+import { ToursModule } from './tours/tours.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -20,13 +22,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
       AppRoutingModule,
       UsersModule,
       NavbarModule,
+      ToursModule,
       HttpClientModule,
       BrowserAnimationsModule,
       MatToolbarModule,
       MatSlideToggleModule,
+      MatListModule,
       
       ServiceWorkerModule.register('ngsw-worker.js', {
-  //enabled: !isDevMode(),
+  enabled: !isDevMode(),
   // Register the ServiceWorker as soon as the application is stable
   // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'

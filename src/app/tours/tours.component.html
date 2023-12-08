@@ -1,0 +1,27 @@
+<div>
+    <table>
+        <tr >
+            <td>Bonjour "nom" voici la tournée du jour</td>
+            <td>État de la tournée: "delivery.state"</td>
+        </tr>
+    </table>
+</div>
+
+<div class="centered-button">
+  <button mat-raised-button color="primary">Démarrer</button>
+</div>
+
+<div>
+  <mat-grid-list *ngFor="let order of orders" cols="3" rowHeight="20px">
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      {{ order.client.name }}
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      {{ order.state }}
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="2">
+      {{ order.client.address }}
+    </mat-grid-tile>
+    <mat-divider></mat-divider>
+  </mat-grid-list>
+</div>
