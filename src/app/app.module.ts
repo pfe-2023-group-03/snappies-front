@@ -6,7 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersModule } from './users/users.module';
-import { NavbarModule } from './navbar/navbar.module'
+import { NavbarModule } from './navbar/navbar.module';
+import { LoginformModule } from './loginform/loginform.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -20,6 +21,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
       AppRoutingModule,
       UsersModule,
       NavbarModule,
+      LoginformModule,
       HttpClientModule,
       BrowserAnimationsModule,
       MatToolbarModule,
