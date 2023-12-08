@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './loginform.component.html',
   styleUrls: ['./loginform.component.css']
 })
-export class LoginformComponent {
+export class LoginformComponent implements OnInit{
+  //constructor() { }
+  ngOnInit(): void {}
+  hide = true;
 }
