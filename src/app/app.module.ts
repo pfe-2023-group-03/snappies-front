@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { UserformModule } from './userform/userform.module';
 
 
 
@@ -26,6 +27,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
       BrowserAnimationsModule,
       MatToolbarModule,
       MatSlideToggleModule,
+      UserformModule,
       
       ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
