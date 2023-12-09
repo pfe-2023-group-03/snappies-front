@@ -9,7 +9,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class UserformComponent implements OnInit {
   ngOnInit(): void {}
   email: FormControl = new FormControl('', [Validators.required, Validators.email]);
-
+  floatLabelControl: FormControl = new FormControl('delivery');
   // Fonction pour récupérer le message d'erreur
   getErrorMessage() {
     if (this.email.hasError('required')) {

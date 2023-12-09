@@ -4,7 +4,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { UserformComponent } from './userform.component';
-import { ReactiveFormsModule } from '@angular/forms'; // Importez ReactiveFormsModule pour utiliser les FormControl
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [UserformComponent],
@@ -13,7 +16,10 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importez ReactiveFormsM
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    ReactiveFormsModule, // Ajoutez ReactiveFormsModule pour utiliser les FormControl
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatDividerModule
   ],
   exports: [UserformComponent]
 })

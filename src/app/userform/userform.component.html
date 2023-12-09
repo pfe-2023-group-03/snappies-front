@@ -1,24 +1,35 @@
-<h2>Créer un utilisateur</h2>
-<div id="loginform">
-    <mat-form-field>
-        <mat-label>Votre identifiant</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Votre mot de passe</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Enter your email</mat-label>
-        <input matInput placeholder="pat@example.com" [formControl]="email" required>
-        <mat-error *ngIf="email.invalid && email.touched">
-            {{ getErrorMessage() }}
-        </mat-error>
-    </mat-form-field>
-</div>
-<div id="loginButton">
-    <button mat-raised-button>Connexion</button>
+<div id="wrapperUserForm">
+    <h2 id="titleform">Créer un utilisateur</h2>
+    <div id="userform">
+        <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="jean-thierry@snappies.be" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid && email.touched">
+                {{ getErrorMessage() }}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Mot de passe</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-radio-group id ="rolebutton" [formControl]="floatLabelControl">
+            <mat-radio-button id="adminRadio" value="admin">Administrateur </mat-radio-button>
+            <mat-radio-button value="delivery">Livreur</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div id="userButton">
+        <button mat-raised-button>Connexion</button>
+    </div>
 </div>
