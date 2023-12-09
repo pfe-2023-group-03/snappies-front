@@ -1,0 +1,39 @@
+.order {
+    text-align: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.order > .title {
+    padding-top: 10px;
+}
+
+.order-header {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.order-header > .client > .detail {
+    text-align: left;
+}
+
+.order-detail {
+    display: flex;
+    justify-content: center;
+}
+
+.order-detail-table {
+    text-align: left;
+    width: 90%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+}

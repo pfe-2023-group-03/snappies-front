@@ -1,0 +1,38 @@
+<section class="order">
+    <h1 class="title">Detail de la commande</h1>
+    <article class="order-header">
+        <ul>
+            <li>
+                <p>Numéro de commande : {{ order.id }}</p>
+            </li>
+            <li>
+                <p>Client : {{ order.client.name }}</p>
+            </li>
+            <li>
+                <p>Adresse : {{ order.client.address }}</p>
+            </li>
+        </ul>
+    </article>
+    <p>Etat de la commande : {{ order.state }}</p>
+    <article class="order-detail">
+        <table mat-table [dataSource]="order.orderDetail" class="order-detail-table">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nom </th>
+                <td mat-cell *matCellDef="let element"> {{element.label }} </td>
+            </ng-container>
+            <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef> Caisses </th>
+                <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" class="actions">
+                    <button class="btn" mat-icon-button color="primary" (click)="edit(element)"><mat-icon>edit</mat-icon></button>
+                    <button class="btn" mat-icon-button color="warn" (click)="delete(element)"><mat-icon>delete</mat-icon></button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </article>
+</section>

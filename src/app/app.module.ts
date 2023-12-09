@@ -12,27 +12,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { OrderDetailsModule } from './order-details/order-details.module';
 
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule,
-      AppRoutingModule,
-      UsersModule,
-      NavbarModule,
-      LoginformModule,
-      HttpClientModule,
-      BrowserAnimationsModule,
-      MatToolbarModule,
-      MatSlideToggleModule,
-      
-      ServiceWorkerModule.register('ngsw-worker.js', {
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    UsersModule,
+    NavbarModule,
+    LoginformModule,
+    OrderDetailsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSlideToggleModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
-  // Register the ServiceWorker as soon as the application is stable
-  // or after 30 seconds (whichever comes first).
-  registrationStrategy: 'registerWhenStable:30000'
-})],
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
