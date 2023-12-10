@@ -14,6 +14,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminModule } from './admin/admin.module';
 import { NavigationService } from './services/navigation.service';
+import { OrderModule } from './order/order.module';
 
 
 
@@ -25,6 +26,7 @@ import { NavigationService } from './services/navigation.service';
       NavbarModule,
       LoginformModule,
       AdminModule,
+      OrderModule,
       HttpClientModule,
       BrowserAnimationsModule,
       MatToolbarModule,
