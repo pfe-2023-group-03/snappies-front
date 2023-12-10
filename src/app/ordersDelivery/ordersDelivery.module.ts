@@ -25,7 +25,9 @@ import {MatIconModule} from '@angular/material/icon'
     MatExpansionModule,
     MatIconModule,
   ],
-  providers: [NavigationService],
+  providers: [
+    NavigationService,
+  ],
   exports: [ordersDeliveryComponent]
 })
 export class ordersDeliveryModule { }

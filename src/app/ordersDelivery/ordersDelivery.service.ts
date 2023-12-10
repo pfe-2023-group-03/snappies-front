@@ -14,7 +14,7 @@ export class ordersDeliveryService {
 
   constructor(private http: HttpClient) { }
 
-  getDelivery(): Observable<Delivery> {
+  getDelivery(id : number): Observable<Delivery> {
     //return this.http.get<any[]>(this.apiUrl);
     return of(this.initData());
   }

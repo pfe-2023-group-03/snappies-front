@@ -5,6 +5,7 @@ import { ordersDeliveryService } from './ordersDelivery.service';
 import { NavigationService } from '../services/navigation.service';
 import { ArticleOrder } from './ArticleOrder';
 import { Delivery, DeliveryState } from './Delivery';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tour',
@@ -16,10 +17,18 @@ export class ordersDeliveryComponent implements OnInit {
 
   tour : string = '1';
   
-  constructor(private ordersDeliveryService: ordersDeliveryService, private navigationService: NavigationService) { }
+  constructor(private ordersDeliveryService: ordersDeliveryService, private navigationService: NavigationService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.ordersDeliveryService.getDelivery().subscribe((delivery) => {
+    let deliveryId: number = 0; // Declare deliveryId using the let keyword
+
+    this.route.params.subscribe(params => {
+      // Utilisez params pour accéder aux valeurs passées dans la route
+      deliveryId = params['deliveryId'];
+      console.log(deliveryId);
+    });
+
+    this.ordersDeliveryService.getDelivery(deliveryId).subscribe((delivery) => { // Use the updated deliveryId variable here
       this.delivery = delivery;
     });
     
