@@ -15,13 +15,13 @@ export class ordersDeliveryService {
   constructor(private http: HttpClient) { }
 
   getDelivery(id : number): Observable<Delivery> {
-    //return this.http.get<any[]>(this.apiUrl);
+    //return this.http.get<Delivery>(this.apiUrl + '/deliveries/' + id);
     return of(this.initData());
   }
 
   startTour(id : number): Observable<boolean> {
-    //return this.http.put<any>(this.apiUrl + '/deliveries/id' + id, {state: 'D'});
-    console.log("startTour");
+    //return this.http.patch<any>(this.apiUrl + '/deliveries/id' + id, {state: 'D'});
+    console.log("service --> startTour");
     return of(true);
   }
 
@@ -72,7 +72,7 @@ export class ordersDeliveryService {
     return {
       id: 1,
       user: 'user1',
-      state: DeliveryState.Delivery,
+      state: DeliveryState.Preparation,
       title: 'tournée 1',
       orders : this.orders,
     }

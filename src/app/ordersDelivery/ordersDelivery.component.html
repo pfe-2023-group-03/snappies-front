@@ -7,9 +7,9 @@
   </table>
 </div>
 
-<div *ngIf="tour === '1'; then enCours; else nonEnCours"></div>
+<div *ngIf="delivery.state === 'En préparation'; then inPreparation; else inDelivery"></div>
 
-<ng-template #enCours>
+<ng-template #inDelivery>
   <ng-container *ngFor="let order of delivery.orders">
     <mat-grid-list  *ngIf=" order.state === 'En livraison'" cols="3" rowHeight="20px">
       <mat-grid-tile [colspan]="2" [rowspan]="1">
@@ -28,7 +28,7 @@
   </ng-container>
 </ng-template>
 
-<ng-template #nonEnCours>
+<ng-template #inPreparation>
   <div class="centered-button">
     <button (click)="startTour(1)" mat-raised-button color="primary">
       Démarrer

@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ordersDeliveryComponent implements OnInit {
   delivery! : Delivery;
 
-  tour : string = '1';
+  tour : string = '2';
   
   constructor(private ordersDeliveryService: ordersDeliveryService, private navigationService: NavigationService, private route: ActivatedRoute) { }
 
@@ -37,8 +37,14 @@ export class ordersDeliveryComponent implements OnInit {
   startTour(tour : number): void {
     this.ordersDeliveryService.startTour(tour).subscribe((order) => {
       tour;
-    }
-  )}
+      /* this.ordersDeliveryService.getDelivery(this.delivery.id).subscribe((updatedDelivery) => {
+        this.delivery = updatedDelivery;
+      }); */
+      this.delivery.state = DeliveryState.Delivery;
+    })
+    
+    console.log("component --> startTour " + this.delivery.state);
+  }
 
   navigateTo(route: string): void {
     this.navigationService.navigateTo(route);
