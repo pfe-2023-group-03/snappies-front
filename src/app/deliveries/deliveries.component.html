@@ -1,15 +1,4 @@
-<!-- <h1>All deliveries</h1>
-
-<div class="deliveries-container">
-    <div *ngFor="let delivery of deliveries" class="delivery-item">
-      <div class="delivery-header">
-        <span class="delivery-title">{{ delivery.title }}</span>
-        <span class="delivery-state"> {{ delivery.state }}</span>
-      </div>
-    </div>
-</div> -->
-
-<h1>All deliveries</h1>
+<h1 class="title">Toutes les tournées</h1>
 
 <div class="deliveries-container">
   <div *ngFor="let delivery of deliveries" class="delivery-item" (click)="navigateTo('/delivery/' + delivery.id)">
@@ -19,6 +8,3 @@
     </div>
   </div>
 </div>
-
-  
-  

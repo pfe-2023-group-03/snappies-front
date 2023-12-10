@@ -12,16 +12,7 @@ export class DeliveryService {
   constructor(private http: HttpClient) { }
 
   getDeliveries(): Observable<any[]> {
-      return this.http.get<any[]>(this.apiUrlAll).pipe(
-      catchError((error: HttpResponse<any>) => {
-        if (error.status === 401) {
-          const deliveries = document.getElementsByClassName('deliveries-container');
-          deliveries[0].innerHTML = '<p id="error">Vous ne pouvez pas acceder a cette page</p>';
-          
-        }
-        return throwError(error);
-      })
-    );
+      return this.http.get<any[]>(this.apiUrlAll);
   }
 
 }
