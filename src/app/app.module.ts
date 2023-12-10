@@ -6,12 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersModule } from './users/users.module';
+import { LoginformModule } from './loginform/loginform.module';
 import { NavbarModule } from './navbar/navbar.module'
 import { ToursModule } from './tours/tours.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AdminModule } from './admin/admin.module';
+import { NavigationService } from './services/navigation.service';
 import { MatListModule } from '@angular/material/list';
 
 
@@ -22,6 +25,8 @@ import { MatListModule } from '@angular/material/list';
       AppRoutingModule,
       UsersModule,
       NavbarModule,
+      LoginformModule,
+      AdminModule,
       ToursModule,
       HttpClientModule,
       BrowserAnimationsModule,
@@ -35,6 +40,7 @@ import { MatListModule } from '@angular/material/list';
   // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'
 })],
+  providers: [NavigationService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

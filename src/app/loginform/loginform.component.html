@@ -1,0 +1,21 @@
+
+<div id="wrapperLogin">
+    <img src="assets/Snappies-Logo.png" alt="Snappies Logo" class="logo" width="25%">
+    <div id ="loginform">
+        <mat-form-field>
+            <mat-label>Votre identifiant</mat-label>
+            <input matInput>
+        </mat-form-field>
+         <mat-form-field>
+            <mat-label>Votre mot de passe</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div id="loginButton">
+        <button  mat-raised-button>Connexion</button>
+    </div>
+    
+</div>
