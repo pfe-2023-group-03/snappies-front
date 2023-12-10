@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-order-details',
@@ -6,45 +9,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-details.component.css'],
 })
 export class OrderDetailsComponent implements OnInit {
+  order: any;
+
+  constructor(private route: ActivatedRoute, private http : HttpClient, private authService : AuthenticationService) { }
 
   ngOnInit(): void {
-    
+    const id = this.route.snapshot.paramMap.get('id');
+
+    this.order = this.http.get('http://localhost:3000/orders/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+
+    const client = this.http.get('http://localhost:3000/clients/' + this.order.clientId, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+
+    const delivery = this.http.get('http://localhost:3000/deliveries/' + this.order.deliveryId, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+
+    this.order.client = client;
+    this.order.delivery = delivery;
   }
 
   displayedColumns: string[] = ['name', 'quantity', 'actions'];
-
-  order = {
-    "id": 1,
-    "number": "123456",
-    "client": {
-      "id": 1,
-      "name": "John Doe",
-      "address": "Rua dos Bobos, nº 0",
-    },
-    "state": "pending",
-    "delivery": {
-      "id": 1,
-      "user": {
-        "firstname": "John",
-      },
-      "state": "pending",
-      "title": "Delivery title",
-    },
-    "orderDetail": [
-      {
-        "label": "Product 1",
-        "quantity": 1,
-      },
-      {
-        "label": "Product 2",
-        "quantity": 2,
-      },
-      {
-        "label": "Product 3",
-        "quantity": 3,
-      }
-    ]
-  };
 
   public edit(element : any) {
     console.log('test');
