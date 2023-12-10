@@ -1,0 +1,64 @@
+/* deliveries.component.css */
+
+.deliveries-container {
+    margin-top: 20px;
+  }
+  
+  .delivery-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .delivery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .delivery-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .delivery-state {
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .preparation {
+    background-color: #ffc107; /* yellow */
+  }
+  
+  .transit {
+    background-color: #007bff; /* blue */
+  }
+  
+  .delivered {
+    background-color: #28a745; /* green */
+  }
+  
+  .order-list {
+    margin-top: 10px;
+  }
+  
+  .order-item {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  #error {
+    color: #dc3545; /* red */
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  #deliveries-ok {
+    color: #dc3545; /* red */
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
