@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import { Location } from '@angular/common';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router, private location: Location) {}
+  constructor(private router: Router, private location: Location, private authService : AuthenticationService) {}
 
   ngOnInit(): void {}
 
@@ -19,5 +20,9 @@ export class NavbarComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+  logout(): void {
+    this.authService.signOut();
+    this.router.navigateByUrl("/login");
   }
 }

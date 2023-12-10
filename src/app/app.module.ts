@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
+import { AuthenticationInterceptor } from './authentication.interceptor';
 
 
 @NgModule({
@@ -33,6 +33,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'
 })],
+providers: [
+  AuthenticationInterceptor
+],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
