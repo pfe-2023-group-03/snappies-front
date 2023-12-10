@@ -5,9 +5,15 @@
   }
   
   .delivery-item {
+    cursor: pointer;
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 10px;
+    transition: background-color 0.3s; /* Ajout d'une transition pour un effet de survol */
+  }
+  
+  .delivery-item:hover {
+    background-color: #f0f0f0; /* Couleur de survol */
   }
   
   .delivery-header {
@@ -24,7 +30,7 @@
   .delivery-state {
     padding: 5px;
     border-radius: 5px;
-    color: #fff;
+    color: black;
     font-size: 12px;
     text-align: center;
   }
@@ -48,17 +54,5 @@
   .order-item {
     display: block;
     margin-bottom: 5px;
-  }
-  
-  #error {
-    color: #dc3545; /* red */
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  #deliveries-ok {
-    color: #dc3545; /* red */
-    font-size: 18px;
-    font-weight: bold;
   }
   
