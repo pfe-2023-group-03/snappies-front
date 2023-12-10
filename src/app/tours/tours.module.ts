@@ -7,6 +7,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 
 @NgModule({
@@ -18,7 +20,7 @@ import {MatTableModule} from '@angular/material/table';
     MatGridListModule,
     MatButtonModule,
     MatTableModule,
-
+    MatExpansionModule
   ],
   exports: [ToursComponent]
 })

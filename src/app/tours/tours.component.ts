@@ -13,6 +13,9 @@ export class ToursComponent implements OnInit {
   client1: Client;
   client2 : Client;
   client3 : Client;
+  
+  //array of artciles with quantity
+  articles: any[] = [{label: 'couche S', quantity: 3}, {label: 'Sac poubelles', quantity: 4}, {label: 'Essuies', quantity: 2}];
 
   constructor(private ToursService: ToursService) {
     // Initialisez votre liste de livraisons ici (par exemple, à partir d'un service)

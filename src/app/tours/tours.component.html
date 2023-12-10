@@ -1,10 +1,10 @@
 <div>
-    <table>
-        <tr >
-            <td>Bonjour "nom" voici la tournée du jour</td>
-            <td>État de la tournée: "delivery.state"</td>
-        </tr>
-    </table>
+  <table>
+    <tr>
+      <td>Bonjour "nom" voici la tournée du jour</td>
+      <td>État de la tournée: "delivery.state"</td>
+    </tr>
+  </table>
 </div>
 
 <div class="centered-button">
@@ -12,16 +12,26 @@
 </div>
 
 <div>
-  <mat-grid-list *ngFor="let order of orders" cols="3" rowHeight="20px">
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      {{ order.client.name }}
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="2">
-      {{ order.state }}
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="2">
-      {{ order.client.address }}
-    </mat-grid-tile>
-    <mat-divider></mat-divider>
-  </mat-grid-list>
-</div>
+    <mat-expansion-panel *ngFor="let order of orders">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ order.client.name }}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ order.client.address }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <!-- Contenu du panneau d'expansion -->
+      <div>
+        <mat-list>
+          <mat-list-item *ngFor="let article of articles">
+            <p mat-line><strong>{{ article.label }}</strong>  --  {{ article.quantity }}</p>
+          </mat-list-item>
+        </mat-list>
+        <p><strong>État:</strong> {{ order.state }}</p>
+      </div>
+  
+      <mat-divider></mat-divider>
+    </mat-expansion-panel>
+  </div>
