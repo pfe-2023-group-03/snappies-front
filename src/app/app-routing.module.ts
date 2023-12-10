@@ -4,13 +4,13 @@ import { UsersComponent } from './users/users.component';
 import { LoginformComponent } from './loginform/loginform.component';
 import { AdminComponent } from './admin/admin.component';
 
-import { ToursComponent } from './tours/tours.component';
+import { ordersDeliveryComponent } from './ordersDelivery/ordersDelivery.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'login', component: LoginformComponent},
-  { path: 'admin', component: AdminComponent}
-  { path: 'tours', component: ToursComponent }
+  { path: 'admin', component: AdminComponent},
+  { path: 'delivery', component: ordersDeliveryComponent },
 ];
 
 @NgModule({

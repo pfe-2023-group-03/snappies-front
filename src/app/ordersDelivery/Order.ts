@@ -1,10 +1,11 @@
+import { ArticleOrder } from './ArticleOrder';
 import { Client } from './Client';
 
 export interface Order {
     id: number;
     state: OrderState;
     client: Client;
-    delivery: string;
+    articles : ArticleOrder[];
  }
 
 export enum OrderState {
