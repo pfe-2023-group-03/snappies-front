@@ -13,6 +13,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DeliveriesModule } from './deliveries/deliveries.module';
+import { AdminModule } from './admin/admin.module';
+import { NavigationService } from './services/navigation.service';
 
 
 
@@ -23,6 +25,7 @@ import { DeliveriesModule } from './deliveries/deliveries.module';
       UsersModule,
       NavbarModule,
       LoginformModule,
+      AdminModule,
       HttpClientModule,
       BrowserAnimationsModule,
       MatToolbarModule,
@@ -35,6 +38,7 @@ import { DeliveriesModule } from './deliveries/deliveries.module';
   // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'
 })],
+  providers: [NavigationService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
