@@ -8,6 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon'
 
 
 
@@ -20,7 +21,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatGridListModule,
     MatButtonModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatIconModule,
   ],
   exports: [ToursComponent]
 })

@@ -9,6 +9,7 @@ import { ToursService } from './tours.service';
   styleUrls: ['./tours.component.css'],
 })
 export class ToursComponent implements OnInit {
+  tour : string = '2';
   orders: Order[];
   client1: Client;
   client2 : Client;
@@ -45,9 +46,15 @@ export class ToursComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.ToursService.getTours().subscribe((orders) => {
+    /*this.ToursService.getDelivery().subscribe((orders) => {
       this.orders = orders;
     });
     */
   }
+
+  startTour(tour : number): void {
+    this.ToursService.startTour(tour).subscribe((order) => {
+      tour;
+    }
+  )}
 }
