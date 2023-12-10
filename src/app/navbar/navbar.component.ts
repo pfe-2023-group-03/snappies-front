@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { AuthenticationService } from '../authentication.service';
 import { NavigationService } from '../services/navigation.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { NavigationService } from '../services/navigation.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private location: Location, private navigationService: NavigationService) {}
+  constructor(private location: Location, private navigationService: NavigationService, private authService : AuthenticationService) {}
 
   ngOnInit(): void {}
 
@@ -19,5 +20,9 @@ export class NavbarComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+  logout(): void {
+    this.authService.signOut();
+    this.navigateTo('login');
   }
 }
