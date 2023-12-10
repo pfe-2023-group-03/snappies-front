@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AdminModule } from './admin/admin.module';
+import { NavigationService } from './services/navigation.service';
 
 
 
@@ -22,6 +24,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
       UsersModule,
       NavbarModule,
       LoginformModule,
+      AdminModule,
       HttpClientModule,
       BrowserAnimationsModule,
       MatToolbarModule,
@@ -33,6 +36,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'
 })],
+  providers: [NavigationService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

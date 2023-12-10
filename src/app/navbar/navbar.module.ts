@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { NavigationService } from '../services/navigation.service';
 
 @NgModule({
   declarations: [NavbarComponent],
@@ -21,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatIconModule,
   ],
+  providers: [NavigationService],
   exports: [NavbarComponent],
 })
 export class NavbarModule {}
