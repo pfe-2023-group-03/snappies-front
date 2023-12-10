@@ -25,6 +25,7 @@ export class AuthenticationService {
       } else {
         sessionStorage.setItem('token', res.access_token);
       }
+      sessionStorage.setItem('user', JSON.stringify(res.user));
     });
 
     return response;
@@ -57,5 +58,9 @@ export class AuthenticationService {
     });
 
     return response;
+  }
+
+  getUser(): any {
+    return JSON.parse(sessionStorage.getItem('user') || localStorage.getItem('user') || '{}');
   }
 }
