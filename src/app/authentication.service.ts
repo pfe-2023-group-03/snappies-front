@@ -34,6 +34,7 @@ export class AuthenticationService {
   signOut() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
   }
 
   isLogged(): boolean {
