@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginformComponent},
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
   { path: 'order', component: OrderComponent},
-  { path: 'delivery/:deliveryId', component: ordersDeliveryComponent },
+  { path: 'delivery/:deliveryId', component: ordersDeliveryComponent},
 ];
 
 @NgModule({

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ordersDeliveryComponent } from './ordersDelivery.component';
 import { NavigationService } from '../services/navigation.service';
+import { AuthenticationService } from '../authentication.service';
 
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
@@ -27,6 +28,7 @@ import {MatIconModule} from '@angular/material/icon'
   ],
   providers: [
     NavigationService,
+    AuthenticationService,
   ],
   exports: [ordersDeliveryComponent]
 })

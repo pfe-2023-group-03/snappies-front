@@ -1,28 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { Delivery, DeliveryState } from './Delivery';
 import { ArticleOrder } from './ArticleOrder';
 import { Order, OrderState } from './Order';
 import { Client } from './Client';
+import { AuthenticationService } from '../authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ordersDeliveryService {
-  private apiUrl = 'http://localhost:3000/'; // Replace with your NestJS API endpoint
+  private apiUrl = environment.apiUrl; // Replace with your NestJS API endpoint
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authenticationService : AuthenticationService) { }
 
-  getDelivery(id : number): Observable<Delivery> {
-    //return this.http.get<Delivery>(this.apiUrl + '/deliveries/' + id);
-    return of(this.initData());
+  getDelivery(id : number): Observable<any[]> {
+console.log("service --> getDelivery: " + this.apiUrl + '/deliveries/' + id);
+    return this.http.get<any>(this.apiUrl + '/deliveries/' + id)/* .pipe(
+      catchError((error: HttpResponse<any>) => {
+        if (error.status === 401) {
+          const deliveries = document.getElementsByClassName('delivery-head');
+          deliveries[0].innerHTML = '<p id="error">Vous ne pouvez pas acceder a cette page</p>';
+        }
+        return throwError(error);
+      }) 
+    )*/; 
+    //return of(this.initData());
   }
 
   startTour(id : number): Observable<boolean> {
-    //return this.http.patch<any>(this.apiUrl + '/deliveries/id' + id, {state: 'D'});
+    return this.http.patch<any>(this.apiUrl + '/deliveries/id' + id, {state: 'D'});
     console.log("service --> startTour");
-    return of(true);
+    //return of(true);
   }
 
   articles!: ArticleOrder[]

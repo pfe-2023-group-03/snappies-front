@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./ordersDelivery.component.css'],
 })
 export class ordersDeliveryComponent implements OnInit {
-  delivery! : Delivery;
+  delivery! : any[];
 
   tour : string = '2';
   
@@ -28,9 +28,11 @@ export class ordersDeliveryComponent implements OnInit {
       console.log(deliveryId);
     });
 
-    this.ordersDeliveryService.getDelivery(deliveryId).subscribe((delivery) => { // Use the updated deliveryId variable here
+    this.ordersDeliveryService.getDelivery(deliveryId).subscribe((delivery) => {
       this.delivery = delivery;
     });
+    
+    console.log("component --> +ngOnInit " + this.delivery);
     
   }
 
@@ -40,10 +42,10 @@ export class ordersDeliveryComponent implements OnInit {
       /* this.ordersDeliveryService.getDelivery(this.delivery.id).subscribe((updatedDelivery) => {
         this.delivery = updatedDelivery;
       }); */
-      this.delivery.state = DeliveryState.Delivery;
+      /* this.delivery.state = DeliveryState.Delivery; */
     })
     
-    console.log("component --> startTour " + this.delivery.state);
+    /* console.log("component --> startTour " + this.delivery.state); */
   }
 
   navigateTo(route: string): void {

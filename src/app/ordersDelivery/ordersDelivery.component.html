@@ -1,12 +1,12 @@
-<div>
+<div class="delivery-head">
   <table>
     <tr>
-      <td>Bonjour <strong>{{delivery.user}}</strong> voici la tournée du jour</td>
-      <td>État de la tournée: <strong>{{delivery.state}}</strong></td>
+      <td>Bonjour <strong><!-- delivery.user --></strong> voici la tournée du jour</td>
+      <td>État de la tournée: <strong><!-- {{delivery.state}} --></strong></td>
     </tr>
   </table>
 </div>
-
+<!-- 
 <div *ngIf="delivery.state === 'En préparation'; then inPreparation; else inDelivery"></div>
 
 <ng-template #inDelivery>
@@ -26,7 +26,7 @@
       <mat-divider></mat-divider>
     </mat-grid-list>
   </ng-container>
-</ng-template>
+</ng-template> -->
 
 <ng-template #inPreparation>
   <div class="centered-button">
@@ -35,7 +35,7 @@
     </button>
   </div>
 
-  <div>
+<!--   <div>
     <mat-expansion-panel *ngFor="let order of delivery.orders">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -45,9 +45,9 @@
           {{ order.client.address }}
         </mat-panel-description>
       </mat-expansion-panel-header>
-
+ -->
       <!-- Conrent of expansion panel -->
-      <div>
+<!--       <div>
         <mat-list>
           <mat-list-item *ngFor="let article of order.articles">
             <p mat-line>
@@ -62,3 +62,4 @@
     </mat-expansion-panel>
   </div>
 </ng-template>
+ -->
