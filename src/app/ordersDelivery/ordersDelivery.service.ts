@@ -14,20 +14,16 @@ import { environment } from 'src/environments/environment';
 export class ordersDeliveryService {
   private apiUrl = environment.apiUrl; // Replace with your NestJS API endpoint
 
-  constructor(private http: HttpClient, private authenticationService : AuthenticationService) { }
+  constructor(private http: HttpClient) { }
 
-  getDelivery(id : number): Observable<any[]> {
-console.log("service --> getDelivery: " + this.apiUrl + '/deliveries/' + id);
-    return this.http.get<any>(this.apiUrl + '/deliveries/' + id)/* .pipe(
-      catchError((error: HttpResponse<any>) => {
-        if (error.status === 401) {
-          const deliveries = document.getElementsByClassName('delivery-head');
-          deliveries[0].innerHTML = '<p id="error">Vous ne pouvez pas acceder a cette page</p>';
-        }
-        return throwError(error);
-      }) 
-    )*/; 
+  getDelivery(id : number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/deliveries/${id}`); 
     //return of(this.initData());
+  }
+
+  getOrders(id : number): Observable<any[]> {
+    console.log("service --> getOrders:" + `${this.apiUrl}/orders`);
+    return this.http.get<any>(`${this.apiUrl}/orders/delivery/${id}`); 
   }
 
   startTour(id : number): Observable<boolean> {

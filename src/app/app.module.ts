@@ -21,7 +21,7 @@ import { OrderModule } from './order/order.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le chemin correct
-import { OrderModule } from './order/order.module';import { MatListModule } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 
 
 
