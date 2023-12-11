@@ -1,34 +1,39 @@
+<div *ngIf="orderError" class="error-message">Il existe déja une livraison pour ce client</div>
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="centered-form">
 
-    <div class="form-field">
-      <mat-form-field>
-        <mat-label>Client Name</mat-label>
-        <mat-select formControlName="clientName">
-          <mat-option value="John Doe">John Doe</mat-option>
-          <mat-option value="Jane Smith">Jane Smith</mat-option>
-          <mat-option value="Bob Johnson">Bob Johnson</mat-option>
-        </mat-select>
-        <mat-error *ngIf="orderForm.get('clientName')?.hasError('required')">Client Name is required</mat-error>
-      </mat-form-field>
-    </div>
+  <div class="form-field">
+    <mat-form-field>
+      <mat-label>Client Name</mat-label>
+      <mat-select formControlName="clientId">
+        <mat-option *ngFor="let client of clientNames" [value]="client.id">
+          {{ client.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="orderForm.get('clientId')?.hasError('required')">Client Name is required</mat-error>
+    </mat-form-field>
+  </div>
   
-    <div class="form-field">
-      <mat-form-field>
-        <mat-label>Delivery Number</mat-label>
-        <input matInput formControlName="deliveryNumber">
-        <mat-error *ngIf="orderForm.get('deliveryNumber')?.hasError('required')">Delivery Number is required</mat-error>
-      </mat-form-field>
-    </div>
+  <div class="form-field">
+    <mat-form-field>
+      <mat-label>Deliverie</mat-label>
+      <mat-select formControlName="deliveryId">
+        <mat-option *ngFor="let delivery of deliveries" [value]="delivery.id">
+          {{ delivery.title }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="orderForm.get('deliveryId')?.hasError('required')">Delivery is required</mat-error>
+    </mat-form-field>
+  </div>
   
     <div class="form-field">
       <mat-form-field>
         <mat-label>Article</mat-label>
-        <mat-select formControlName="article">
-          <mat-option value="Article 1">Article 1</mat-option>
-          <mat-option value="Article 2">Article 2</mat-option>
-          <mat-option value="Article 3">Article 3</mat-option>
+        <mat-select formControlName="articleId">
+          <mat-option *ngFor="let article of articles" [value]="article.id">
+            {{ article.label }}
+          </mat-option>
         </mat-select>
-        <mat-error *ngIf="orderForm.get('article')?.hasError('required')">Article is required</mat-error>
+        <mat-error *ngIf="orderForm.get('articleId')?.hasError('required')">Article is required</mat-error>
       </mat-form-field>
     </div>
   

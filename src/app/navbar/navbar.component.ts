@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthenticationService } from '../authentication.service';
 import { NavigationService } from '../services/navigation.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +10,7 @@ import { NavigationService } from '../services/navigation.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('sidenav') sidenav!: MatSidenav;
 
   constructor(private location: Location, private navigationService: NavigationService, private authService : AuthenticationService) {}
 
@@ -16,11 +18,13 @@ export class NavbarComponent implements OnInit {
 
   navigateTo(route: string): void {
     this.navigationService.navigateTo(route);
+    this.closeSidenav();
   }
 
   goBack(): void {
     this.location.back();
   }
+
   logout(): void {
     this.authService.signOut();
     this.navigateTo('login');
@@ -42,5 +46,11 @@ export class NavbarComponent implements OnInit {
 
   isDisconnect(): boolean {
     return this.authService.isLogged();
+  }
+  
+  closeSidenav(): void {
+    if (this.sidenav) {
+      this.sidenav.close();
+    }
   }
 }
