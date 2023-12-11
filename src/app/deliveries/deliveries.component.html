@@ -1,0 +1,14 @@
+  <h1 class="title">Toutes les tournées</h1>
+
+  <div class="deliveries-container">
+    <div *ngFor="let delivery of deliveries" class="delivery-item" (click)="navigateTo('/delivery/' + delivery.id)">
+      <div class="delivery-header">
+        <span class="delivery-title">{{ delivery.title }}</span>
+        <span class="delivery-state" [ngClass]="{
+          'preparation': delivery.state === 'preparation',
+          'delivery': delivery.state === 'delivery',
+          'finished': delivery.state === 'finished'
+        }">{{ delivery.state }}</span>
+      </div>
+    </div>
+  </div>

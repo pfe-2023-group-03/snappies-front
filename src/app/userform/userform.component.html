@@ -1,0 +1,42 @@
+<h1 id="title">Créer un utilisateur</h1>
+
+<div id="wrapperCreateUser">
+
+    <form id ="userform" [formGroup]="userform">
+        <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input formControlName="firstname" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input formControlName="lastname" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Votre mot de passe</mat-label>
+            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Rôle</mat-label>
+            <mat-select formControlName="role">
+              <mat-option *ngFor="let r of roles" [value]="r.value">
+                {{ r.viewValue }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        <div id="createButton">
+            <button  mat-raised-button (click)="onSubmit()" [disabled]="this.userform.invalid">créer</button>
+        </div>
+    </form>
+</div>

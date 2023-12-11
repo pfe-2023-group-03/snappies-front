@@ -13,10 +13,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OrderDetailsModule } from './order-details/order-details.module';
-import { AuthenticationInterceptor } from './authentication.interceptor';
+import { DeliveriesModule } from './deliveries/deliveries.module';
 import { AdminModule } from './admin/admin.module';
 import { NavigationService } from './services/navigation.service';
 import { OrderModule } from './order/order.module';
+import { UserformModule } from './userform/userform.module';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './authentication.interceptor';
 
 
 @NgModule({
@@ -34,13 +38,19 @@ import { OrderModule } from './order/order.module';
     MatSlideToggleModule,
     AdminModule,
     OrderModule,
+    UserformModule,
+    DeliveriesModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
     }),
   ],
 providers: [
-  AuthenticationInterceptor,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },
   NavigationService
 ],
   bootstrap: [AppComponent],
