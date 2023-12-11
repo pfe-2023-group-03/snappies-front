@@ -4,7 +4,7 @@ import { NavigationService } from '../services/navigation.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CompositionDialogComponent } from './compositiondialog/compositiondialog.component';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-tour',
@@ -99,19 +99,6 @@ export class ordersDeliveryComponent implements OnInit {
     return this.ordersdeliveryService.getOrders(orders);
   }
 
-  openCompositionDialog() {
-    const dialogRef = this.dialog.open(CompositionDialogComponent, {
-      width: '400px',
-    });
-  }
-
-  getArticles(): void {
-    const articles = this.ordersdeliveryService.getArticles()
-    articles.forEach(article => {
-      this.Articles.push(article)
-    });
-  };
-
   calculateForEachBoxesQuantity(): void {
     this.orders.forEach(order => {
       const articlesInOrder = order.articles;
@@ -126,8 +113,6 @@ export class ordersDeliveryComponent implements OnInit {
         }
       });
     });
-
-    console.log('Article Quantity Map:', this.articleQuantityMap);
   }
 
 
