@@ -13,9 +13,9 @@ import { Role } from './models/role';
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'login', component: LoginformComponent},
-  { path: 'order-details', component: OrderDetailsComponent},
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
-  { path: 'order', component: OrderComponent}
+  { path: 'order', component: OrderComponent},
+  { path: 'orders/:id', component: OrderDetailsComponent}
 ];
 
 @NgModule({

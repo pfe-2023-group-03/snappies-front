@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { environment } from 'src/environments/environment';
+import { OrderDetailsService } from './order-details.service';
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-order-details',
@@ -10,41 +13,45 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class OrderDetailsComponent implements OnInit {
   order: any;
+  isLoading: boolean = true;
 
-  constructor(private route: ActivatedRoute, private http : HttpClient, private authService : AuthenticationService) { }
+  private readonly API_URL = environment.apiUrl;
+
+  constructor(
+    private route: ActivatedRoute,
+    private orderDetailsService: OrderDetailsService,
+    private navigationService: NavigationService,
+  ) {}
+
+  
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
 
-    this.order = this.http.get('http://localhost:3000/orders/' + id, {
-      headers: {
-        Authorization: 'Bearer ' + this.authService.getToken(),
+    this.orderDetailsService.getOrder(id).subscribe(
+      (order) => {
+        this.order = order;
       },
+      (error) => {
+        console.error(error);
+      }
+    );
+    
+
+    this.orderDetailsService.getClient(this.order.clientId).subscribe((client) => {
+      this.order.client = client;
+      this.isLoading = false;
     });
 
-    const client = this.http.get('http://localhost:3000/clients/' + this.order.clientId, {
-      headers: {
-        Authorization: 'Bearer ' + this.authService.getToken(),
-      },
+    this.orderDetailsService.getOrderDetails(this.order.id).subscribe((orderDetails) => {
+      this.order.orderDetails = orderDetails;
+      this.isLoading = false;
     });
-
-    const delivery = this.http.get('http://localhost:3000/deliveries/' + this.order.deliveryId, {
-      headers: {
-        Authorization: 'Bearer ' + this.authService.getToken(),
-      },
-    });
-
-    this.order.client = client;
-    this.order.delivery = delivery;
   }
 
-  displayedColumns: string[] = ['name', 'quantity', 'actions'];
+  diplayedColumns: string[] = ['name', 'quantity', 'actions'];
 
-  public edit(element : any) {
-    console.log('test');
-  }
-
-  public delete(element : any) {
-    console.log('test');
+  edit(element: any) {
+    console.log(element);
   }
 }
