@@ -17,6 +17,7 @@ import { DeliveriesModule } from './deliveries/deliveries.module';
 import { AdminModule } from './admin/admin.module';
 import { NavigationService } from './services/navigation.service';
 import { OrderModule } from './order/order.module';
+import { UserformModule } from './userform/userform.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le chemin correct
@@ -36,6 +37,7 @@ import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le ch
       MatToolbarModule,
       MatSlideToggleModule,
       DeliveriesModule,
+      UserformModule,
       
       ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
