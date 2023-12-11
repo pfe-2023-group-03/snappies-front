@@ -5,6 +5,30 @@
     margin-top: 3%;
     margin-bottom: 10%;
   }
+  .delivery-state {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 3%;
+    text-align: center;
+  }
+  
+  .boxes, .surplus {
+    padding: 15px;
+    border-radius: 5px;
+    
+  }
+  .surplus{
+    margin-bottom: 5%;
+  }
+  
+  .boxes, .surplus {
+    font-size: 15px;
+  }
+
+  .composition {
+    justify-self: end;
+  }
   
   .orders-container {
     margin-left: 10%;

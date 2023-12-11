@@ -29,5 +29,9 @@ export class ordersDeliveryService {
   getClientOfOrder(clientId: any): Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/clients/${clientId}`);
   }
+
+  getDeliveryBoxes(orderId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/order-details/sumQuantityOfOrder/${orderId}`, {});
+  }
   
 }

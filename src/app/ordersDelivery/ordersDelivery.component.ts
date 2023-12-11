@@ -14,6 +14,7 @@ export class ordersDeliveryComponent implements OnInit {
   delivery: any;
   orders: any[] = [];
   clientDetails: any = {};
+  deliveryBoxes: number = 0;
 
   constructor(
     private ordersDeliveryService: ordersDeliveryService,
@@ -52,6 +53,7 @@ export class ordersDeliveryComponent implements OnInit {
             }
           );
         });
+        this.getDeliveryBoxes();
       },
       (error) => {
         console.error('Error loading delivery and orders', error);
@@ -73,5 +75,19 @@ export class ordersDeliveryComponent implements OnInit {
   encodeGoogleMapsAddress(address: string): string {
     return encodeURIComponent(address);
   }
+
+  getDeliveryBoxes(): void {
+    this.orders.forEach(order => {
+      this.ordersDeliveryService.getDeliveryBoxes(order.id).subscribe(
+        (boxes) => {
+          this.deliveryBoxes += Number(boxes.sum);
+        },
+        (error) => {
+          console.error('Error loading delivery boxes', error);
+        }
+      );
+    });
+  }
+
 
 }
