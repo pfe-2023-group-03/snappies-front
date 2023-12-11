@@ -27,6 +27,7 @@ export class DeliveriesComponent implements OnInit{
       }
     );
   }
+  
 
   navigateTo(route : string): void {
     this.navigationService.navigateTo(route);

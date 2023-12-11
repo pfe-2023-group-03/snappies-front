@@ -41,7 +41,18 @@
 .delivery-state {
   padding: 5px;
   border-radius: 5px;
-  color: black;
   font-size: 12px;
   text-align: center;
+}
+
+.preparation {
+  color: red;
+}
+
+.delivery {
+  color: blue;
+}
+
+.finished {
+  color: green;
 }
