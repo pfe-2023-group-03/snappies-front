@@ -9,6 +9,7 @@ import { AuthenticationGuard } from './authentication.guard';
 import { OrderComponent } from './order/order.component';
 import { AuthorizationGuard } from './authorization.guard';
 import { Role } from './models/role';
+import { ClientformComponent } from './clientform/clientform.component';
 
 import { ordersDeliveryComponent } from './ordersDelivery/ordersDelivery.component';
 
@@ -19,7 +20,9 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
   { path: 'order', component: OrderComponent},
   { path: 'delivery/:deliveryId', component: ordersDeliveryComponent},
-  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }}
+  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
+  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
+  { path: 'create-client', component: ClientformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
 ];
 
 @NgModule({

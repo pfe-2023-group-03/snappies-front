@@ -10,7 +10,7 @@
       <div class="order-details">
         <span class="order-name">{{ clientDetails[order.id]?.name }}</span>
         <a *ngIf="clientDetails[order.id]?.address" [href]="'https://www.google.com/maps/search/?api=1&query=' + encodeGoogleMapsAddress(clientDetails[order.id].address)" target="_blank">
-          {{ clientDetails[order.id]?.address }}
+          Adresse du client
         </a>
       </div>
       <span class="order-state">{{ order.state }}</span>
