@@ -1,75 +1,19 @@
-<div class="global" *ngIf="delivery">
-  <div class="delivery-head">
-    <table>
-      <tr>
-        <td>
-          Bonjour <strong><!-- {{delivery.user}} --></strong> voici la tournée
-          du jour
-        </td>
-        <td>
-          État de la tournée: <strong> {{ delivery.state }} </strong>
-        </td>
-      </tr>
-    </table>
+<h1 class="title">La tournée</h1>
+
+<div *ngIf="delivery" class="delivery-state">
+  <p>État de la livraison : {{ delivery.state }}</p>
+</div>
+
+<div class="orders-container">
+  <div *ngFor="let order of orders" class="order-item" (click)="navigateTo('/order/' + order.id)">
+    <div class="order-header">
+      <div class="order-details">
+        <span class="order-name">{{ clientDetails[order.id]?.name }}</span>
+        <a *ngIf="clientDetails[order.id]?.address" [href]="'https://www.google.com/maps/search/?api=1&query=' + encodeGoogleMapsAddress(clientDetails[order.id].address)" target="_blank">
+          {{ clientDetails[order.id]?.address }}
+        </a>
+      </div>
+      <span class="order-state">{{ order.state }}</span>
+    </div>
   </div>
-
-  <div *ngIf="delivery.state === 'En préparation'; then inPreparation; else inDelivery"></div>
-
-  <ng-template #inDelivery>
-    <ng-container *ngFor="let order of delivery.orders">
-      <mat-grid-list *ngIf="order.state === 'En livraison'" cols="3" rowHeight="20px">
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-          {{ order.client.name }}
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="2">
-          <button
-            (click)="navigateTo('/delivery/{{order.id}}')"
-            mat-raised-button
-            color="primary"
-          >
-            <mat-icon>done_outline</mat-icon>
-          </button>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="2" [rowspan]="2">
-          {{ order.client.address }}
-        </mat-grid-tile>
-        <mat-divider></mat-divider>
-      </mat-grid-list>
-    </ng-container>
-  </ng-template>
-
-  <ng-template #inPreparation>
-    <div class="centered-button">
-      <button (click)="startTour(1)" mat-raised-button color="primary">
-        Démarrer
-      </button>
-    </div>
-
-    <div>
-      <mat-expansion-panel *ngFor="let order of delivery.orders">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ order.client.name }}
-          </mat-panel-title>
-          <mat-panel-description>
-            {{ order.client.address }}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <!-- Conrent of expansion panel -->
-        <div>
-          <mat-list>
-            <mat-list-item *ngFor="let article of order.articles">
-              <p mat-line>
-                <strong>{{ article.label }}</strong> -- {{ article.quantity }}
-              </p>
-            </mat-list-item>
-          </mat-list>
-          <p><strong>État:</strong> {{ order.state }}</p>
-        </div>
-
-        <mat-divider></mat-divider>
-      </mat-expansion-panel>
-    </div>
-  </ng-template>
 </div>
