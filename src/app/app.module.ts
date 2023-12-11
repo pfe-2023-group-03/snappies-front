@@ -13,9 +13,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { AuthenticationInterceptor } from './authentication.interceptor';
+import { DeliveriesModule } from './deliveries/deliveries.module';
+// import { AuthenticationInterceptor } from './authentication.interceptor';
 import { AdminModule } from './admin/admin.module';
 import { NavigationService } from './services/navigation.service';
+import { OrderModule } from './order/order.module';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le chemin correct
 import { OrderModule } from './order/order.module';import { MatListModule } from '@angular/material/list';
 
 
@@ -32,6 +37,7 @@ import { OrderModule } from './order/order.module';import { MatListModule } from
       BrowserAnimationsModule,
       MatToolbarModule,
       MatSlideToggleModule,
+      DeliveriesModule,
       MatListModule,
       
       ServiceWorkerModule.register('ngsw-worker.js', {
@@ -41,7 +47,12 @@ import { OrderModule } from './order/order.module';import { MatListModule } from
   registrationStrategy: 'registerWhenStable:30000'
 })],
 providers: [
-  AuthenticationInterceptor,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },
+  // AuthenticationInterceptor,
   NavigationService
 ],
   bootstrap: [AppComponent],
