@@ -25,4 +25,24 @@ export class NavbarComponent implements OnInit {
     this.authService.signOut();
     this.navigateTo('login');
   }
+
+  isUserAdmin(): boolean {
+    const user = this.authService.getUser();
+    return user?.role === 'admin';
+  }
+
+  isUSerAuthorized(): boolean {
+    const user = this.authService.getUser();
+    return user?.role === 'admin' || user?.role === 'deliverer';
+  }
+
+  isConnect(): boolean {
+    const token = this.authService.getToken();
+    return token === null || token === '';
+  }
+
+  isDisconnect(): boolean {
+    const token = this.authService.getToken();
+    return token !== null && token !== '';
+  }
 }
