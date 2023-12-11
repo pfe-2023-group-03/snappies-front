@@ -4,6 +4,7 @@ import { UsersComponent } from './users/users.component';
 import { LoginformComponent } from './loginform/loginform.component';
 import { AdminComponent } from './admin/admin.component';
 import { DeliveriesComponent } from './deliveries/deliveries.component';
+import { UserformComponent } from './userform/userform.component';
 import { AuthenticationGuard } from './authentication.guard';
 import { OrderComponent } from './order/order.component';
 import { AuthorizationGuard } from './authorization.guard';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
   { path: 'order', component: OrderComponent},
   { path: 'delivery/:deliveryId', component: ordersDeliveryComponent},
+  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }}
 ];
 
 @NgModule({
