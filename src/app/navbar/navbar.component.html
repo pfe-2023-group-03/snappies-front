@@ -13,12 +13,12 @@
         <mat-nav-list>
             <a mat-list-item (click)="navigateTo('/')">Home</a>
             <a mat-list-item *ngIf="isUserAdmin()" (click)="navigateTo('/users')">Users</a>
-            <a mat-list-item *ngIf="isDisconnect()" (click)="navigateTo('/login')">Login</a>
+            <a mat-list-item *ngIf="isConnect()" (click)="navigateTo('/login')">Login</a>
             <a mat-list-item *ngIf="isUserAdmin()" (click)="navigateTo('/admin')">Admin</a>
             <a mat-list-item *ngIf="isUSerAuthorized()" (click)="navigateTo('/deliveries')">Deliveries</a>
             <a mat-list-item *ngIf="isUSerAuthorized()" (click)="navigateTo('/order')">Order</a>
             <a mat-list-item *ngIf="isUserAdmin()" (click)="navigateTo('/create-user')">create user</a>
-            <a mat-list-item *ngIf="isConnect()" (click)="logout()">Déconnexion</a>"
+            <a mat-list-item *ngIf="isDisconnect()" (click)="logout()">Déconnexion</a>"
         </mat-nav-list>
     </mat-sidenav> 
     <mat-sidenav-content>
