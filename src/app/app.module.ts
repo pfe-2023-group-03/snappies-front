@@ -23,6 +23,8 @@ import { UserformModule } from './userform/userform.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le chemin correct
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { ClientformModule } from './clientform/clientform.module';
 
@@ -43,6 +45,7 @@ import { ClientformModule } from './clientform/clientform.module';
       MatListModule,
       UserformModule,
       ClientformModule,
+      MatDialogModule,
       ServiceWorkerModule.register('ngsw-worker.js', {
   enabled: !isDevMode(),
   // Register the ServiceWorker as soon as the application is stable

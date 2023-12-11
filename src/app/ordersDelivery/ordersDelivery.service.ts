@@ -33,5 +33,13 @@ export class ordersDeliveryService {
   getDeliveryBoxes(orderId: number): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/order-details/sumQuantityOfOrder/${orderId}`, {});
   }
+
+  getOrders(orders : any[]): any[] {
+    return orders;
+  }
+
+  getArticles(): Observable<any[]> {
+    return this.http.get<any>(`${this.apiUrl}/articles`);
+  }
   
 }

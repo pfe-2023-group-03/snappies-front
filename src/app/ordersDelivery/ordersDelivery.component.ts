@@ -3,6 +3,8 @@ import { ordersDeliveryService } from './ordersDelivery.service';
 import { NavigationService } from '../services/navigation.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { CompositionDialogComponent } from './compositiondialog/compositiondialog.component';
 
 @Component({
   selector: 'app-tour',
@@ -15,11 +17,15 @@ export class ordersDeliveryComponent implements OnInit {
   orders: any[] = [];
   clientDetails: any = {};
   deliveryBoxes: number = 0;
+  Articles: any[] = [];
+  articleQuantityMap: Map<string, number> = new Map();
+
 
   constructor(
-    private ordersDeliveryService: ordersDeliveryService,
+    private ordersdeliveryService: ordersDeliveryService,
     private navigationService: NavigationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog 
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +40,7 @@ export class ordersDeliveryComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap(params => {
         const deliveryId = this.getDeliveryId();
-        return this.ordersDeliveryService.getDeliveryAndOrders(Number(deliveryId || ''));
+        return this.ordersdeliveryService.getDeliveryAndOrders(Number(deliveryId || ''));
       })
     ).subscribe(
       (data) => {
@@ -44,7 +50,7 @@ export class ordersDeliveryComponent implements OnInit {
         // Récupérer les détails du client pour chaque commande
         this.orders.forEach(order => {
           const clientId = order.clientId;
-          this.ordersDeliveryService.getClientOfOrder(clientId).subscribe(
+          this.ordersdeliveryService.getClientOfOrder(clientId).subscribe(
             (client) => {
               this.clientDetails[order.id] = client;
             },
@@ -78,7 +84,7 @@ export class ordersDeliveryComponent implements OnInit {
 
   getDeliveryBoxes(): void {
     this.orders.forEach(order => {
-      this.ordersDeliveryService.getDeliveryBoxes(order.id).subscribe(
+      this.ordersdeliveryService.getDeliveryBoxes(order.id).subscribe(
         (boxes) => {
           this.deliveryBoxes += Number(boxes.sum);
         },
@@ -87,6 +93,41 @@ export class ordersDeliveryComponent implements OnInit {
         }
       );
     });
+  }
+
+  getOrders(orders : any[]): any[] {
+    return this.ordersdeliveryService.getOrders(orders);
+  }
+
+  openCompositionDialog() {
+    const dialogRef = this.dialog.open(CompositionDialogComponent, {
+      width: '400px',
+    });
+  }
+
+  getArticles(): void {
+    const articles = this.ordersdeliveryService.getArticles()
+    articles.forEach(article => {
+      this.Articles.push(article)
+    });
+  };
+
+  calculateForEachBoxesQuantity(): void {
+    this.orders.forEach(order => {
+      const articlesInOrder = order.articles;
+
+      this.Articles.forEach(article => {
+        const articleIdString = article.id.toString();
+
+        if (this.articleQuantityMap.has(articleIdString)) {
+          this.articleQuantityMap.set(articleIdString, this.articleQuantityMap.get(articleIdString)! + 1);
+        } else {
+          this.articleQuantityMap.set(articleIdString, 1);
+        }
+      });
+    });
+
+    console.log('Article Quantity Map:', this.articleQuantityMap);
   }
 
 
