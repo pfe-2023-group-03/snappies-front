@@ -13,8 +13,7 @@ Run `ng build --configuration production` to build the project. The build artifa
 
 ## Deployement
 
-The project is deployed on a VPS using Docker. The Dockerfile is in the root of the project. Tout cela est géré par les Github Actions se trouvant dans le dossier .github/workflows. 
-Il y a deux workflows, un pour le serveur de développement et un pour le serveur de production.
+The project is deployed on a VPS using Docker. The Dockerfile is in the root of the project. Everything is managed by Githuh Actions. There is two workflows, one for the development and one for the production. The production workflow is triggered when a tag is pushed on the main branch. The development workflow is triggered when a push is made on the dev branch.
 
 ## Authors
 
