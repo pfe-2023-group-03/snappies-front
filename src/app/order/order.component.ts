@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from './order.service';
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-order',
@@ -13,7 +14,10 @@ export class OrderComponent implements OnInit {
   deliveries!: any[];
   articles!: any[];
 
-  constructor(private orderService: OrderService) { }
+  orderError: boolean = false;
+  errorMessage: string = '';
+
+  constructor(private orderService: OrderService,private navigationService: NavigationService) { }
 
   ngOnInit(): void {
     this.orderForm = new FormGroup({
@@ -71,7 +75,11 @@ export class OrderComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Error making order:', error);
+        if (error.status === 500) {
+          this.handleError('Error: Combination already exists.');
+        } else {
+          this.handleError('Error making order details: ' + error.message);
+        }
       }
     );
   }
@@ -86,13 +94,14 @@ export class OrderComponent implements OnInit {
 
     this.orderService.submitOrderDetail(orderDetailData).subscribe(
       (orderDetailsResponse) => {
-        console.log('Order details submitted successfully:', orderDetailsResponse);
+        this.navigationService.navigateTo('/');
       },
       (error) => {
         console.error('Error submitting order details:', error);
       }
     );
   }
+
 
   onSubmit(): void {
     if (this.orderForm.valid) {
@@ -101,7 +110,18 @@ export class OrderComponent implements OnInit {
         deliveryId: this.orderForm.get('deliveryId')?.value,
         state: 'delivery'
       };
+      this.resetErrorState();
       this.makeOrder(orderData);
     }
+  }
+  
+  private handleError(message: string): void {
+    this.orderError = true;
+    this.errorMessage = message;
+  }
+
+  private resetErrorState(): void {
+    this.orderError = false;
+    this.errorMessage = '';
   }
 }

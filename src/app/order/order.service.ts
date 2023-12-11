@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,7 +24,15 @@ export class OrderService {
   }
 
   submitOrder(orderData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/orders`, orderData);
+    return this.http.post(`${this.apiUrl}/orders`, orderData).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 500) {
+          return throwError('Error: Combination already exists.');
+        } else {
+          return throwError('Error making order: ' + error.message);
+        }
+      })
+    );
   }
 
   submitOrderDetail(orderDetailData: any): Observable<any> {
