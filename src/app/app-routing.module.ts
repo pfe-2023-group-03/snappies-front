@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'deliveries', component: DeliveriesComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin, Role.Deliverer] } },
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
   { path: 'order', component: OrderComponent},
-  { path: 'orders/:id', component: OrderDetailsComponent}
+  { path: 'orders/:id', component: OrderDetailsComponent},
   { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }}
 ];
 
