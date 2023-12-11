@@ -17,7 +17,7 @@ export class AuthorizationGuard implements CanActivate {
     const user = this.authService.getUser();
     if (user) {
       if (route.data['roles'] && route.data['roles'].indexOf(user.role) === -1) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
         return false;
       }
       return true;

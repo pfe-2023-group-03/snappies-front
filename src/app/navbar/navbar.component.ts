@@ -37,12 +37,10 @@ export class NavbarComponent implements OnInit {
   }
 
   isConnect(): boolean {
-    const token = this.authService.getToken();
-    return token === null || token === '';
+    return !this.authService.isLogged();
   }
 
   isDisconnect(): boolean {
-    const token = this.authService.getToken();
-    return token !== null && token !== '';
+    return this.authService.isLogged();
   }
 }
