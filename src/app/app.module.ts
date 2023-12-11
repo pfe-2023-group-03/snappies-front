@@ -13,9 +13,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DeliveriesModule } from './deliveries/deliveries.module';
+import { AuthenticationInterceptor } from './authentication.interceptor';
 import { AdminModule } from './admin/admin.module';
 import { NavigationService } from './services/navigation.service';
-
+import { OrderModule } from './order/order.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NavigationService } from './services/navigation.service';
       NavbarModule,
       LoginformModule,
       AdminModule,
+      OrderModule,
       HttpClientModule,
       BrowserAnimationsModule,
       MatToolbarModule,
@@ -38,7 +40,10 @@ import { NavigationService } from './services/navigation.service';
   // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'
 })],
-  providers: [NavigationService],
+providers: [
+  AuthenticationInterceptor,
+  NavigationService
+],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../authentication.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -7,7 +10,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loginform.component.css']
 })
 export class LoginformComponent implements OnInit{
-  //constructor() { }
+  
   ngOnInit(): void {}
+
   hide = true;
+
+  loginForm = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    rememberMe: new FormControl(false)
+  });
+
+  constructor(private readonly authenticationService : AuthenticationService, private router : Router) {}
+
+  login(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    const username = this.loginForm.get('username')?.value;
+    const password = this.loginForm.get('password')?.value;
+    const rememberMe = this.loginForm.get('rememberMe')?.value || false;
+    
+    if ((username && password) && (username != null && password != null)) {
+      this.authenticationService.signin(username, password, rememberMe).subscribe(
+        () => {
+          this.router.navigateByUrl('/');
+        },
+        (error) => {
+          console.error('Login error:', error);
+        }
+      );
+    }    
+  }
 }
