@@ -21,6 +21,7 @@ import { UserformModule } from './userform/userform.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le chemin correct
+import { ClientformModule } from './clientform/clientform.module';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le ch
       MatSlideToggleModule,
       DeliveriesModule,
       UserformModule,
-      
+      ClientformModule,
       ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
   // Register the ServiceWorker as soon as the application is stable
