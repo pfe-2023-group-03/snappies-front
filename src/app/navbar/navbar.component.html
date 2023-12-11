@@ -15,7 +15,6 @@
             <a mat-list-item *ngIf="isUserAdmin()" (click)="navigateTo('/users')">Users</a>
             <a mat-list-item *ngIf="isConnect()" (click)="navigateTo('/login')">Login</a>
             <a mat-list-item *ngIf="isUserAdmin()" (click)="navigateTo('/admin')">Admin</a>
-            <a mat-list-item *ngIf="isUSerAuthorized()" (click)="navigateTo('/')">Deliveries</a>
             <a mat-list-item *ngIf="isUSerAuthorized()" (click)="navigateTo('/order')">Order</a>
             <a mat-list-item *ngIf="isUserAdmin()" (click)="navigateTo('/create-user')">create user</a>
             <a mat-list-item *ngIf="isDisconnect()" (click)="navigateTo('/create-client')">create client</a>
