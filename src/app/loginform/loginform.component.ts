@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NavigationService } from '../services/navigation.service';
 
 
 @Component({
@@ -21,7 +22,10 @@ export class LoginformComponent implements OnInit{
     rememberMe: new FormControl(false)
   });
 
-  constructor(private readonly authenticationService : AuthenticationService, private router : Router) {}
+  constructor(
+    private navigationService: NavigationService,
+    private readonly authenticationService : AuthenticationService, 
+    private router : Router) {}
 
   login(): void {
     if (this.loginForm.invalid) {
@@ -35,7 +39,7 @@ export class LoginformComponent implements OnInit{
     if ((username && password) && (username != null && password != null)) {
       this.authenticationService.signin(username, password, rememberMe).subscribe(
         () => {
-          this.router.navigateByUrl('/');
+          this.navigationService.navigateTo('/');
         },
         (error) => {
           console.error('Login error:', error);
