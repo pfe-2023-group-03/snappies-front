@@ -1,27 +1,24 @@
 # SnappiesFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+This the front end of the Snappies project. It is an Angular 17 project.
+We are using Angular Material for the UI. And Angular/PWA for the progressive web app.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build --configuration production` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Deployement
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The project is deployed on a VPS using Docker. The Dockerfile is in the root of the project. Everything is managed by Githuh Actions. There is two workflows, one for the development and one for the production. The production workflow is triggered when a tag is pushed on the main branch. The development workflow is triggered when a push is made on the dev branch.
 
-## Running end-to-end tests
+## Authors
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-   **Corentin D'haeyere** - [cdhaeyere](https://github.com/cdhaeyere)
+-   **Thomas Johnen** - [ThomasJohnen](https://github.com/ThomasJohnen)
+-   **Lucas Fuentes Gonzalez** - [LucasFueGo](https://github.com/LucasFueGo)
+-   **Laurent Vandermeersch** - [laurentVDM](https://github.com/laurentVDM)
+-   **Loic Thomas** - [LoicThomas9170](https://github.com/LoicThomas9170)
