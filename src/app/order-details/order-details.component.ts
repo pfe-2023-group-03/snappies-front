@@ -90,7 +90,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   saveQuantity(element: any): void {
-    const { orderId, articleId, newQuantity, defaultQuantity, surplusQuantity } = element;
+    const { orderId, articleId, newQuantity, defaultQuantity } = element;
     const QuantityToAdd = newQuantity - defaultQuantity;
     this.orderDetailsService.updateOrderDetails(orderId, articleId, QuantityToAdd).subscribe(
       (response) => {
@@ -111,7 +111,7 @@ export class OrderDetailsComponent implements OnInit {
   changeStatusToDone(): void {
     this.orderDetailsService.updateOrderStatus(this.order).subscribe(
       (response) => {
-        this.orderState = 'done'; // Mettez à jour la variable locale
+        this.orderState = 'done';
         this.changeDetectorRef.detectChanges();
       },
       (error) => {

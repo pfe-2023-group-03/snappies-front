@@ -1,7 +1,25 @@
 <h1 *ngIf="delivery" class="title">{{delivery.title}}</h1>
 
 <div *ngIf="delivery" class="delivery-state">
-  <p>État de la tournée : {{ delivery.state }}</p>
+  <div class="center-container">
+    <div class="state-header">
+      <p>État de la tournée : </p>
+      <div class="state-panel">
+
+        <mat-expansion-panel class="panel-item">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ delivery.state }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="panel-content">
+            <button *ngIf="delivery.state === 'preparation' || delivery.state === 'delivery' "(click)="updateDeliveryStatus(delivery.state === 'preparation' ? 'delivery' : (delivery.state === 'delivery' ? 'finished' : 'Unknown State: ' + delivery.state))">
+              {{ delivery.state === 'preparation' ? 'delivery' : (delivery.state === 'delivery' ? 'finished' : 'Unknown State: ' + delivery.state) }}
+            </button>
+          </div>
+        </mat-expansion-panel>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="boxes">
@@ -17,8 +35,6 @@
     </div>
   </mat-expansion-panel>
 </div>
-
-
 
 <div class="surplus">
   Nombre de caisse en surplus a prendre : {{deliveryBoxes*0.1}}
