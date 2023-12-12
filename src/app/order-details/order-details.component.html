@@ -15,8 +15,7 @@
     </article>
     <div class="order-state">
         <p>Etat de la commande : {{ orderState || order?.state }}</p>
-        <button (click)="changeStatusToDone()">Valider</button>
-      </div>
+    </div>
     <article class="order-detail">
         <table mat-table [dataSource]="order.orderDetails" class="order-detail-table">
             <ng-container matColumnDef="name">
@@ -59,4 +58,5 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </article>
+    <button (click)="changeStatusToDone()" class="validation-button">Valider la commande</button>
 </section>
