@@ -16,7 +16,7 @@ import { ClientsComponent } from './clients/clients.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
-  { path: 'clients', component: ClientsComponent },
+  { path: 'clients', component: ClientsComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
   { path: 'login', component: LoginformComponent},
   { path: '', component: DeliveriesComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin, Role.Deliverer] } },
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
