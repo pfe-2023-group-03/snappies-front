@@ -1,0 +1,19 @@
+<section>
+    <h2 id="title">Liste des clients</h2>
+    <table mat-table [dataSource]="clients" class="clients">
+        <ng-container class="cell" matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container class="cell" matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef>Adresse</th>
+            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+        <ng-container class="cell" matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Numero</th>
+            <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</section>
