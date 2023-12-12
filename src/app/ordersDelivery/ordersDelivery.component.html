@@ -6,7 +6,19 @@
 
 <div class="boxes">
   Nombre de caisse a prendre : {{deliveryBoxes}}
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Composition</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="panel-content">
+      <div *ngFor="let articleEntry of articleQuantityMap.entries()">
+        Article {{ articleEntry[0] }} : {{ articleEntry[1] }}
+      </div>
+    </div>
+  </mat-expansion-panel>
 </div>
+
+
 
 <div class="surplus">
   Nombre de caisse en surplus a prendre : {{deliveryBoxes*0.1}}

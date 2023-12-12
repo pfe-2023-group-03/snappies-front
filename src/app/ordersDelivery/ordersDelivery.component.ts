@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ordersDeliveryService } from './ordersDelivery.service';
 import { NavigationService } from '../services/navigation.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ComponentPortal } from '@angular/cdk/portal';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-tour',
   templateUrl: './ordersDelivery.component.html',
   styleUrls: ['./ordersDelivery.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ordersDeliveryComponent implements OnInit {
 
@@ -25,11 +27,16 @@ export class ordersDeliveryComponent implements OnInit {
     private ordersdeliveryService: ordersDeliveryService,
     private navigationService: NavigationService,
     private route: ActivatedRoute,
-    public dialog: MatDialog 
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef 
   ) {}
 
   ngOnInit(): void {
     this.getDeliveryAndOrders();
+  }
+  ngAfterViewInit(): void {
+    this.calculateForEachBoxesQuantity();
+    this.cdr.detectChanges();
   }
 
   navigateTo(route: string): void {
@@ -60,6 +67,7 @@ export class ordersDeliveryComponent implements OnInit {
           );
         });
         this.getDeliveryBoxes();
+        this.calculateForEachBoxesQuantity();
       },
       (error) => {
         console.error('Error loading delivery and orders', error);
@@ -101,19 +109,30 @@ export class ordersDeliveryComponent implements OnInit {
 
   calculateForEachBoxesQuantity(): void {
     this.orders.forEach(order => {
-      const articlesInOrder = order.articles;
-
-      this.Articles.forEach(article => {
-        const articleIdString = article.id.toString();
-
-        if (this.articleQuantityMap.has(articleIdString)) {
-          this.articleQuantityMap.set(articleIdString, this.articleQuantityMap.get(articleIdString)! + 1);
-        } else {
-          this.articleQuantityMap.set(articleIdString, 1);
+      const orderId = order.id;
+  
+      this.ordersdeliveryService.getOrderDetails(orderId).subscribe(
+        (orderDetails) => {
+          orderDetails.forEach(detail => {
+            const articleId = detail.articleId;
+            const quantity = detail.quantity;
+  
+            if (this.articleQuantityMap.has(articleId)) {
+              this.articleQuantityMap.set(articleId, this.articleQuantityMap.get(articleId)! + quantity);
+            } else {
+              this.articleQuantityMap.set(articleId, quantity);
+            }
+          });
+          this.cdr.markForCheck();
+        },
+        (error) => {
+          console.error('Error loading order details', error);
         }
-      });
+      );
     });
   }
+  
+  
 
 
 }
