@@ -116,7 +116,7 @@ export class ordersDeliveryComponent implements OnInit {
         (orderDetails) => {
           orderDetails.forEach(detail => {
             const articleId = detail.articleId;
-            const quantity = detail.quantity;
+            const quantity = detail.defaultQuantity + detail.surplusQuantity;
   
             this.ordersdeliveryService.getArticle(articleId).subscribe(
               (article) => {
