@@ -30,9 +30,10 @@ export class OrderDetailsService {
 
   updateOrderDetails(orderId: number, articleId: number, newQuantity: number) {
     const body = {
-      quantity: newQuantity
+      quantity: newQuantity,
+      default: false
     }
-    return this.http.patch(`${this.apiUrl}/order-details/${orderId}/${articleId}`, body);
+    return this.http.patch(`${this.apiUrl}/order-details/updateQuantity/${orderId}/${articleId}`, body);
   }
 
   updateOrderStatus(order: any): Observable<any> {

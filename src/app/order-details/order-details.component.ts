@@ -90,10 +90,11 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   saveQuantity(element: any): void {
-    const { orderId, articleId, newQuantity } = element;
-    this.orderDetailsService.updateOrderDetails(orderId, articleId, newQuantity).subscribe(
+    const { orderId, articleId, newQuantity, defaultQuantity, surplusQuantity } = element;
+    const QuantityToAdd = newQuantity - defaultQuantity;
+    this.orderDetailsService.updateOrderDetails(orderId, articleId, QuantityToAdd).subscribe(
       (response) => {
-        element.quantity = newQuantity;
+        element.surplusQuantity = QuantityToAdd;
         element.editing = false;
       },
       (error) => {
