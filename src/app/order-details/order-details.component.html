@@ -18,9 +18,7 @@
         <table mat-table [dataSource]="order.orderDetails" class="order-detail-table">
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Nom </th>
-                <td mat-cell *matCellDef="let element">
-                    {{ articleNameMap[element.id].entry() }}
-                  </td>
+                <td mat-cell *matCellDef="let element"> {{ articleNameMap.get(element.articleId)}} </td>
             </ng-container>
             <ng-container matColumnDef="quantity">
                 <th mat-header-cell *matHeaderCellDef> Caisses </th>

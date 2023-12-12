@@ -46,6 +46,11 @@ export class OrderDetailsComponent implements OnInit {
           ([client, orderDetails]) => {
             this.order.client = client;
             this.order.orderDetails = orderDetails;
+
+            this.order.orderDetails.forEach((detail:any) => {
+              this.getArticleName(detail.articleId);
+            });
+
             this.isLoading = false;
           },
           (error) => {
@@ -64,7 +69,8 @@ export class OrderDetailsComponent implements OnInit {
   getArticleName(articleId: number): void {
     this.orderDetailsService.getArticle(articleId).subscribe(
       (article) => {
-        this.articleNameMap.set(articleId, article.name);
+        console.log('Article:', article);
+        this.articleNameMap.set(articleId, article.label);
       },
       (error) => {
         console.error(error);
