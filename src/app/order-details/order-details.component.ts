@@ -69,7 +69,6 @@ export class OrderDetailsComponent implements OnInit {
   getArticleName(articleId: number): void {
     this.orderDetailsService.getArticle(articleId).subscribe(
       (article) => {
-        console.log('Article:', article);
         this.articleNameMap.set(articleId, article.label);
       },
       (error) => {
