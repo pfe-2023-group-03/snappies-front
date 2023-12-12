@@ -6,8 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersModule } from './users/users.module';
-import { NavbarModule } from './navbar/navbar.module';
 import { LoginformModule } from './loginform/loginform.module';
+import { NavbarModule } from './navbar/navbar.module'
+import { ordersDeliveryModule } from './ordersDelivery/ordersDelivery.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -21,6 +22,10 @@ import { UserformModule } from './userform/userform.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le chemin correct
+import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+
+
 import { ClientformModule } from './clientform/clientform.module';
 
 
@@ -32,16 +37,17 @@ import { ClientformModule } from './clientform/clientform.module';
       NavbarModule,
       LoginformModule,
       AdminModule,
-      OrderModule,
       HttpClientModule,
       BrowserAnimationsModule,
       MatToolbarModule,
       MatSlideToggleModule,
       DeliveriesModule,
+      MatListModule,
       UserformModule,
       ClientformModule,
+      MatDialogModule,
       ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
+  enabled: !isDevMode(),
   // Register the ServiceWorker as soon as the application is stable
   // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'

@@ -11,6 +11,7 @@ import { AuthorizationGuard } from './authorization.guard';
 import { Role } from './models/role';
 import { ClientformComponent } from './clientform/clientform.component';
 
+import { ordersDeliveryComponent } from './ordersDelivery/ordersDelivery.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -18,6 +19,8 @@ const routes: Routes = [
   { path: '', component: DeliveriesComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin, Role.Deliverer] } },
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
   { path: 'order', component: OrderComponent},
+  { path: 'delivery/:deliveryId', component: ordersDeliveryComponent},
+  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
   { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
   { path: 'create-client', component: ClientformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
 ];
