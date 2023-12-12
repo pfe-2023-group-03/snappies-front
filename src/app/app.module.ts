@@ -6,8 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersModule } from './users/users.module';
-import { NavbarModule } from './navbar/navbar.module';
 import { LoginformModule } from './loginform/loginform.module';
+import { NavbarModule } from './navbar/navbar.module'
+import { ordersDeliveryModule } from './ordersDelivery/ordersDelivery.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -22,29 +23,37 @@ import { UserformModule } from './userform/userform.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication.interceptor';
 
+import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { ClientformModule } from './clientform/clientform.module';
+
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    UsersModule,
-    NavbarModule,
-    LoginformModule,
-    OrderDetailsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSlideToggleModule,
-    AdminModule,
-    OrderModule,
-    UserformModule,
-    DeliveriesModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-  ],
+  imports: [BrowserModule,
+      AppRoutingModule,
+      UsersModule,
+      NavbarModule,
+      LoginformModule,
+      OrderDetailsModule,
+      AdminModule,
+      HttpClientModule,
+      BrowserAnimationsModule,
+      MatToolbarModule,
+      MatSlideToggleModule,
+      DeliveriesModule,
+      MatListModule,
+      UserformModule,
+      ClientformModule,
+      OrderModule,
+      MatDialogModule,
+      ServiceWorkerModule.register('ngsw-worker.js', {
+  enabled: !isDevMode(),
+  // Register the ServiceWorker as soon as the application is stable
+  // or after 30 seconds (whichever comes first).
+  registrationStrategy: 'registerWhenStable:30000'
+})],
 providers: [
   {
     provide: HTTP_INTERCEPTORS,

@@ -5,22 +5,18 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UserformService {
+export class ClientformService {
 
   constructor(private http: HttpClient) { }
 
-  createUser(firstname:string, lastname:string, email:string, password:string, role:string ) {
+  createClient(name:string, address:string, phone:string ) {
 
     const postOption = {
-      firstname,
-      lastname,
-      email,
-      password,
-      role
+      name,
+      address,
+      phone
     };
 
-    return this.http.post(environment.apiUrl + '/users', postOption);
-
+    return this.http.post(environment.apiUrl + '/clients', postOption);
   }
-  
 }

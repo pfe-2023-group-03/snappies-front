@@ -1,0 +1,25 @@
+<h1 id="title">Créer un utilisateur</h1>
+
+<div id="wrapperCreateClient">
+
+    <form id ="clientform" [formGroup]="clientform">
+        <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input formControlName="name" matInput placeholder="Nom">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Adresse</mat-label>
+            <input formControlName="address" matInput placeholder="Avenue Emile 96, 1200">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Numero de téléphone</mat-label>
+            <input formControlName="phone" matInput placeholder="+32490505003">
+        </mat-form-field>
+        
+        <div id="createButton">
+            <button  mat-raised-button (click)="onSubmit()" [disabled]="this.clientform.invalid">Créer</button>
+        </div>
+    </form>
+</div>

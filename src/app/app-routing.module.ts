@@ -10,16 +10,20 @@ import { AuthenticationGuard } from './authentication.guard';
 import { OrderComponent } from './order/order.component';
 import { AuthorizationGuard } from './authorization.guard';
 import { Role } from './models/role';
+import { ClientformComponent } from './clientform/clientform.component';
 
+import { ordersDeliveryComponent } from './ordersDelivery/ordersDelivery.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'login', component: LoginformComponent},
-  { path: 'deliveries', component: DeliveriesComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin, Role.Deliverer] } },
+  { path: '', component: DeliveriesComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin, Role.Deliverer] } },
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
   { path: 'order', component: OrderComponent},
   { path: 'orders/:id', component: OrderDetailsComponent},
-  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }}
+  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
+  { path: 'delivery/:deliveryId', component: ordersDeliveryComponent},
+  { path: 'create-client', component: ClientformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
 ];
 
 @NgModule({

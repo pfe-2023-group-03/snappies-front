@@ -1,0 +1,39 @@
+<h1 *ngIf="delivery" class="title">{{delivery.title}}</h1>
+
+<div *ngIf="delivery" class="delivery-state">
+  <p>État de la tournée : {{ delivery.state }}</p>
+</div>
+
+<div class="boxes">
+  Nombre de caisse a prendre : {{deliveryBoxes}}
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Composition</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="panel-content">
+      <div *ngFor="let articleEntry of articleQuantityMap.entries()">
+        Article {{ articleEntry[0] }} : {{ articleEntry[1] }}
+      </div>
+    </div>
+  </mat-expansion-panel>
+</div>
+
+
+
+<div class="surplus">
+  Nombre de caisse en surplus a prendre : {{deliveryBoxes*0.1}}
+</div>
+
+<div class="orders-container">
+  <div *ngFor="let order of orders" class="order-item" (click)="navigateTo('/order/' + order.id)">
+    <div class="order-header">
+      <div class="order-details">
+        <span class="order-name">{{ clientDetails[order.id]?.name }}</span>
+        <a *ngIf="clientDetails[order.id]?.address" [href]="'https://www.google.com/maps/search/?api=1&query=' + encodeGoogleMapsAddress(clientDetails[order.id].address)" target="_blank">
+          Adresse du client
+        </a>
+      </div>
+      <span class="order-state">{{ order.state }}</span>
+    </div>
+  </div>
+</div>
