@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +14,8 @@ export class UsersComponent implements OnInit {
   users: any[] = [];
   displayedColumns: string[] = ['firstname', 'lastname', 'email', 'role', 'action'];
 
-  constructor(private userService: UserService,  public dialog: MatDialog) { }
+  constructor(private userService: UserService,  public dialog: MatDialog, 
+    private router: Router) { }
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe((users) => {
@@ -34,9 +36,8 @@ export class UsersComponent implements OnInit {
   callBackendMethod(user: any): void {
     this.userService.updateUserRole(user.id, 'admin').subscribe(
       (response: any) => {
-      console.log('Backend response:', response);
-
-      if (response && response.affected && response.affected > 0) {
+      if (response && response.affected && response.affected > 0) {            
+        this.router.navigate(['/admin']);
         console.log('User role updated successfully.');
       } else {
         console.error('Failed to update user role.');
