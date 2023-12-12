@@ -71,4 +71,39 @@
   .order-state {
     justify-self: end;
   }
+
+  .delivery-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
   
+  .center-container {
+    text-align: center;
+  }
+  
+  .state-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .state-panel {
+    margin-left: 10px; /* Ajustez la marge selon vos besoins */
+  }
+
+.panel-item {
+  box-sizing: border-box;
+}
+
+.panel-content button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 10%; /* Ajustez la valeur en fonction de vos préférences */
+  font: inherit;
+  color: inherit;
+  display: block; /* Permet au bouton de remplir la largeur du conteneur */
+}

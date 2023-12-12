@@ -142,6 +142,22 @@ export class ordersDeliveryComponent implements OnInit {
       );
     });
   }
-  
 
+  updateDeliveryStatus(state: string): void {
+    const deliveryId = this.delivery.id;
+    if (deliveryId !== null) {
+      this.ordersdeliveryService.updateDeliveryStatus(Number(deliveryId), state).subscribe(
+        () => {
+          this.delivery.state = state;
+          this.cdr.markForCheck();
+        },
+        (error) => {
+          console.error('Error updating delivery status', error);
+        }
+      );
+    } else {
+      console.error('Delivery ID is null');
+    }
   }
+
+}
