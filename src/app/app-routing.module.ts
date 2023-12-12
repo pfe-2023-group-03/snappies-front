@@ -12,9 +12,11 @@ import { Role } from './models/role';
 import { ClientformComponent } from './clientform/clientform.component';
 
 import { ordersDeliveryComponent } from './ordersDelivery/ordersDelivery.component';
+import { ClientsComponent } from './clients/clients.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
+  { path: 'clients', component: ClientsComponent },
   { path: 'login', component: LoginformComponent},
   { path: '', component: DeliveriesComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin, Role.Deliverer] } },
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
