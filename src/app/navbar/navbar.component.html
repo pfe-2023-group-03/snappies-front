@@ -15,6 +15,7 @@
             <a mat-list-item *ngIf="isConnect()" (click)="navigateTo('/login')">Login</a>
             <a mat-list-item *ngIf="isUserAdmin()" (click)="navigateTo('/admin')">Admin</a>
             <a mat-list-item *ngIf="isDisconnect()" (click)="logout()">Déconnexion</a>
+            <a mat-list-item (click)="navigateTo('/orders/1')">order-details</a>
         </mat-nav-list>
     </mat-sidenav> 
     <mat-sidenav-content>

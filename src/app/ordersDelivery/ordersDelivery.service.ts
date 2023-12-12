@@ -42,6 +42,10 @@ export class ordersDeliveryService {
     return this.http.get<any>(`${this.apiUrl}/articles`);
   }
 
+  getArticle(articleId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/articles/${articleId}`);
+  }
+
   getOrderDetails(orderId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/order-details/${orderId}`);
   }
