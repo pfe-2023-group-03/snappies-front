@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { LoginformComponent } from './loginform/loginform.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 import { AdminComponent } from './admin/admin.component';
 import { DeliveriesComponent } from './deliveries/deliveries.component';
 import { UserformComponent } from './userform/userform.component';
@@ -21,9 +22,9 @@ const routes: Routes = [
   { path: '', component: DeliveriesComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin, Role.Deliverer] } },
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] } },
   { path: 'order', component: OrderComponent},
+  { path: 'orders/:id', component: OrderDetailsComponent},
+  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
   { path: 'delivery/:deliveryId', component: ordersDeliveryComponent},
-  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
-  { path: 'create-user', component: UserformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
   { path: 'create-client', component: ClientformComponent, canActivate: [AuthenticationGuard, AuthorizationGuard], data: { roles: [Role.Admin] }},
 ];
 
