@@ -34,4 +34,11 @@ export class OrderDetailsService {
     }
     return this.http.patch(`${this.apiUrl}/order-details/${orderId}/${articleId}`, body);
   }
+
+  updateOrderStatus(order: any): Observable<any> {
+    const state = 'done';
+    const body = { state };
+  
+    return this.http.patch(`${this.apiUrl}/orders/${order.id}`, body);
+  }
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { environment } from 'src/environments/environment';
@@ -17,6 +17,7 @@ export class OrderDetailsComponent implements OnInit {
   isLoading: boolean = true;
   displayedColumns: string[] = ['name', 'quantity', 'actions'];
   articleNameMap: Map<number, string> = new Map();
+  orderState: string = '';
 
   private readonly API_URL = environment.apiUrl;
 
@@ -24,7 +25,8 @@ export class OrderDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private orderDetailsService: OrderDetailsService,
     private navigationService: NavigationService,
-    private authService : AuthenticationService
+    private authService : AuthenticationService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   
@@ -103,6 +105,18 @@ export class OrderDetailsComponent implements OnInit {
   isUserAdmin(): boolean {
     const user = this.authService.getUser();
     return user?.role === 'admin';
+  }
+
+  changeStatusToDone(): void {
+    this.orderDetailsService.updateOrderStatus(this.order).subscribe(
+      (response) => {
+        this.orderState = 'done'; // Mettez à jour la variable locale
+        this.changeDetectorRef.detectChanges();
+      },
+      (error) => {
+        console.error('Error updating order status:', error);
+      }
+    );
   }
 
 

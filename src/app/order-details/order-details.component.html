@@ -13,7 +13,10 @@
             </li>
         </ul>
     </article>
-    <p>Etat de la commande : {{ order?.state }}</p>
+    <div class="order-state">
+        <p>Etat de la commande : {{ orderState || order?.state }}</p>
+        <button (click)="changeStatusToDone()">Valider</button>
+      </div>
     <article class="order-detail">
         <table mat-table [dataSource]="order.orderDetails" class="order-detail-table">
             <ng-container matColumnDef="name">
@@ -40,15 +43,18 @@
                 </td>
             </ng-container>
               
-              <ng-container matColumnDef="actions">
+            <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element" class="actions">
                   <button *ngIf="isUserAdmin()" class="btn" mat-icon-button color="primary" (click)="toggleEdit(element)">
                     <mat-icon>{{ element.editing ? '' : 'edit' }}</mat-icon>
                   </button>
-                  <button *ngIf="element.editing" class="btn" mat-icon-button color="primary" (click)="saveQuantity(element)"></button>
+                  <button *ngIf="isUserAdmin() && element.editing" class="btn" mat-icon-button color="primary" (click)="saveQuantity(element)">
+                    <mat-icon>done</mat-icon>
+                  </button>
                 </td>
               </ng-container>
+              
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
