@@ -24,6 +24,7 @@ export class OrderDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private orderDetailsService: OrderDetailsService,
     private navigationService: NavigationService,
+    private authService : AuthenticationService
   ) {}
 
   
@@ -97,6 +98,11 @@ export class OrderDetailsComponent implements OnInit {
         console.error('Error saving quantity:', error);
       }
     );
+  }
+
+  isUserAdmin(): boolean {
+    const user = this.authService.getUser();
+    return user?.role === 'admin';
   }
 
 
