@@ -10,12 +10,13 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>crèches</mat-label>
-            <mat-select multiple formControlName="clients">
-                <mat-option *ngFor="let client of clientlist" [value]="client">
-                    {{ client }}
+            <mat-select multiple formControlName="clientlist">
+                <mat-option *ngFor="let client of clientlist" [value]="client.id">
+                    {{ client.name }}
                 </mat-option>
             </mat-select>
-        </mat-form-field>
+
+
         <div id="registerButton">
             <button  mat-raised-button (click)="submit()" [disabled]="this.deliveriesForm.invalid">Connexion</button>
         </div>
