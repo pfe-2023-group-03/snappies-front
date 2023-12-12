@@ -1,0 +1,22 @@
+<!-- user-dialog.component.html -->
+
+<h1 mat-dialog-title>Confirmation</h1>
+<div mat-dialog-content>
+  <p>Voulez-vous bien transformer cet utilisateur en admin?</p>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <span class="spacer"></span>
+
+  <button mat-button class="thumb-button" [mat-dialog-close]="true" cdkFocusInitial>
+    <mat-icon>thumb_up</mat-icon>
+
+  </button>
+
+  <span class="spacer"></span>
+
+  <button mat-button class="thumb-button" [mat-dialog-close]="false">
+    <mat-icon>thumb_down</mat-icon>
+  </button>
+
+  <span class="spacer"></span>
+</div>

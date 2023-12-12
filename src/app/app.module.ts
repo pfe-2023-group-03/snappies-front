@@ -13,18 +13,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { OrderDetailsModule } from './order-details/order-details.module';
 import { DeliveriesModule } from './deliveries/deliveries.module';
-// import { AuthenticationInterceptor } from './authentication.interceptor';
 import { AdminModule } from './admin/admin.module';
 import { NavigationService } from './services/navigation.service';
 import { OrderModule } from './order/order.module';
 import { UserformModule } from './userform/userform.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './authentication.interceptor'; // Ajoutez le chemin correct
+import { AuthInterceptor } from './authentication.interceptor';
+
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
-
 
 import { ClientformModule } from './clientform/clientform.module';
 import { ClientsModule } from './clients/clients.module';
@@ -38,6 +38,7 @@ import { ClientsModule } from './clients/clients.module';
       ClientsModule,
       NavbarModule,
       LoginformModule,
+      OrderDetailsModule,
       AdminModule,
       HttpClientModule,
       BrowserAnimationsModule,
@@ -47,6 +48,7 @@ import { ClientsModule } from './clients/clients.module';
       MatListModule,
       UserformModule,
       ClientformModule,
+      OrderModule,
       MatDialogModule,
       ServiceWorkerModule.register('ngsw-worker.js', {
   enabled: !isDevMode(),
@@ -60,7 +62,6 @@ providers: [
     useClass: AuthInterceptor,
     multi: true,
   },
-  // AuthenticationInterceptor,
   NavigationService
 ],
   bootstrap: [AppComponent],

@@ -1,0 +1,74 @@
+.order {
+    text-align: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.order > .title {
+    padding-top: 10px;
+}
+
+.order-header {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.order-header > .client > .detail {
+    text-align: left;
+}
+
+.order-detail {
+    display: flex;
+    justify-content: center;
+}
+
+.order-detail-table {
+    text-align: left;
+    width: 90%;
+    border: 1px solid black;
+    border-radius: 10px;
+    table-layout: fixed;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+/* --- */
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+}
+
+.editing-container {
+    display: flex;
+    align-items: center;
+}
+
+.btn-save {
+    margin-left: 130%;
+}
+
+.small-input {
+    width: 50px;
+    box-sizing: border-box;
+}
+
+.validation-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px; /* Ajustez ceci selon vos besoins pour définir la taille du bouton */
+    font-size: 16px; /* Ajustez ceci selon vos besoins pour définir la taille du texte */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Ajustez ceci selon vos besoins pour arrondir les coins */
+    margin-top: 10%;
+
+  }
+  
