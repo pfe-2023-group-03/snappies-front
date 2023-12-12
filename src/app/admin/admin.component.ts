@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../services/navigation.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +9,7 @@ import { NavigationService } from '../services/navigation.service';
 })
 export class AdminComponent implements OnInit{
 
-  constructor(private navigationService: NavigationService) { }
+  constructor(private navigationService: NavigationService, private authenticationService:AuthenticationService) { }
 
   ngOnInit(): void {
     // Add initialization logic here
@@ -16,4 +17,9 @@ export class AdminComponent implements OnInit{
   navigateTo(route: string): void {
     this.navigationService.navigateTo(route);
   }
+
+  getUserName(): string {
+    return this.authenticationService.getUser().firstname;
+  }
+
 }
