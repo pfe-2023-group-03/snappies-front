@@ -14,4 +14,9 @@ export class UserService {
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  updateUserRole(userId: string, role: string): Observable<any> {
+    const updateRoleUrl = `${this.apiUrl}/${userId}/role`;
+    return this.http.patch<any>(updateRoleUrl, { role });
+  }
 }
