@@ -27,4 +27,11 @@ export class OrderDetailsService {
   getArticle(articleId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/articles/${articleId}`);
   }
+
+  updateOrderDetails(orderId: number, articleId: number, newQuantity: number) {
+    const body = {
+      quantity: newQuantity
+    }
+    return this.http.patch(`${this.apiUrl}/order-details/${orderId}/${articleId}`, body);
+  }
 }

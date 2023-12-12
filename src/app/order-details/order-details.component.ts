@@ -78,5 +78,27 @@ export class OrderDetailsComponent implements OnInit {
     );
   }
 
+  toggleEdit(element: any): void {
+    element.editing = !element.editing;
+    if (element.editing) {
+      element.newQuantity = element.quantity;
+      element.orderId = element.orderId;
+      element.articleId = element.articleId;
+    }
+  }
+
+  saveQuantity(element: any): void {
+    const { orderId, articleId, newQuantity } = element;
+    this.orderDetailsService.updateOrderDetails(orderId, articleId, newQuantity).subscribe(
+      (response) => {
+        element.quantity = newQuantity;
+        element.editing = false;
+      },
+      (error) => {
+        console.error('Error saving quantity:', error);
+      }
+    );
+  }
+
 
 }

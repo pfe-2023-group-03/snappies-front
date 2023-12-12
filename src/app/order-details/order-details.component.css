@@ -30,10 +30,38 @@
     width: 90%;
     border: 1px solid black;
     border-radius: 10px;
+    table-layout: fixed;
 }
 
 .actions {
     display: flex;
     justify-content: flex-end;
     padding: 10px;
+}
+
+/* --- */
+
+/* Ajoutez ces styles pour aligner l'input et le bouton côte à côte */
+/* .quantity-container {
+    display: flex;
+    align-items: center;
+}*/
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+}
+
+.editing-container {
+    display: flex;
+    align-items: center;
+}
+
+.btn-save {
+    margin-left: 130%;
+}
+
+.small-input {
+    width: 50px;
+    box-sizing: border-box;
 }

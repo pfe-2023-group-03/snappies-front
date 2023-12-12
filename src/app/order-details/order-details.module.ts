@@ -4,6 +4,9 @@ import { MatTableModule } from '@angular/material/table';
 import { OrderDetailsComponent } from './order-details.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -13,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatTableModule,
     MatIconModule,
     MatButtonModule,
+    MatInputModule,
+    FormsModule
   ],
   exports: [OrderDetailsComponent]
 })
