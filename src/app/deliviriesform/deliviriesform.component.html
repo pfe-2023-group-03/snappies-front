@@ -1,0 +1,23 @@
+<div id="wrapperDeliveriesForm">
+    <form id ="deliveriesForm" [formGroup]="deliveriesForm">
+        <mat-form-field>
+            <mat-label>Nom de la tournée</mat-label>
+            <input formControlName="title" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Numéro d'identification</mat-label>
+            <input formControlName="num" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>crèches</mat-label>
+            <mat-select multiple formControlName="clients">
+                <mat-option *ngFor="let client of clientlist" [value]="client">
+                    {{ client }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div id="registerButton">
+            <button  mat-raised-button (click)="submit()" [disabled]="this.deliveriesForm.invalid">Connexion</button>
+        </div>
+    </form>
+</div>
