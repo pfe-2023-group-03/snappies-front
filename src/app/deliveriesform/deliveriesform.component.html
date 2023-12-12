@@ -1,5 +1,5 @@
 <div id="wrapperDeliveriesForm">
-    <form id ="deliveriesForm" [formGroup]="deliveriesForm">
+    <form [formGroup]="deliveriesForm" (ngSubmit)="onSubmit()" class="centered-form">
         <mat-form-field>
             <mat-label>Nom de la tournée</mat-label>
             <input formControlName="title" matInput>
@@ -9,16 +9,17 @@
             <input formControlName="num" matInput>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>crèches</mat-label>
+            <mat-label>Clients</mat-label>
             <mat-select multiple formControlName="clientlist">
                 <mat-option *ngFor="let client of clientlist" [value]="client.id">
                     {{ client.name }}
                 </mat-option>
             </mat-select>
+        </mat-form-field>
+        
 
-
-        <div id="registerButton">
-            <button  mat-raised-button (click)="submit()" [disabled]="this.deliveriesForm.invalid">Connexion</button>
+        <div class="registerButton">
+            <button mat-raised-button type="submit" [disabled]="deliveriesForm.invalid">Connexion</button>
         </div>
     </form>
 </div>
