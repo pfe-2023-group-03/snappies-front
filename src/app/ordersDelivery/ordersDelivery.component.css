@@ -93,23 +93,6 @@
     margin-left: 10px; /* Ajustez la marge selon vos besoins */
   }
 
-  /* Ajoutez ce style à votre fichier CSS global ou à votre composant spécifique */
-
-/* .panel-item {
-  box-sizing: border-box;
-}
-
-.panel-content button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  font: inherit;
-  /* text-decoration: underline; Optionnel : souligne le texte pour indiquer que c'est cliquable 
-  color: inherit;
-  display: inline;
-} */
-
 .panel-item {
   box-sizing: border-box;
 }
