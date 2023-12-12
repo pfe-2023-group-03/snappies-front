@@ -15,7 +15,8 @@ import { forkJoin } from 'rxjs';
 export class OrderDetailsComponent implements OnInit {
   order: any;
   isLoading: boolean = true;
-  displayedColumns: string[] = ['name', 'quantity', 'actions']; // Déclaration de displayedColumns
+  displayedColumns: string[] = ['name', 'quantity', 'actions'];
+  articleNameMap: Map<number, string> = new Map();
 
   private readonly API_URL = environment.apiUrl;
 
@@ -28,13 +29,16 @@ export class OrderDetailsComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.loadOrderDetails();
+  }
+
+  loadOrderDetails() {
     const id = this.route.snapshot.paramMap.get('id');
   
     this.orderDetailsService.getOrder(id).subscribe(
       (order) => {
         this.order = order;
   
-        // Utilisation de forkJoin pour attendre que les appels asynchrones se terminent
         forkJoin([
           this.orderDetailsService.getClient(this.order.clientId),
           this.orderDetailsService.getOrderDetails(this.order.id)
@@ -46,7 +50,7 @@ export class OrderDetailsComponent implements OnInit {
           },
           (error) => {
             console.error(error);
-            this.isLoading = false; // Assurez-vous de gérer les erreurs ici
+            this.isLoading = false;
           }
         );
       },
@@ -55,4 +59,18 @@ export class OrderDetailsComponent implements OnInit {
       }
     );
   }
+
+
+  getArticleName(articleId: number): void {
+    this.orderDetailsService.getArticle(articleId).subscribe(
+      (article) => {
+        this.articleNameMap.set(articleId, article.name);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+
 }

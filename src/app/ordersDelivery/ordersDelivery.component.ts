@@ -106,6 +106,7 @@ export class ordersDeliveryComponent implements OnInit {
   getOrders(orders : any[]): any[] {
     return this.ordersdeliveryService.getOrders(orders);
   }
+  
 
   calculateForEachBoxesQuantity(): void {
     this.orders.forEach(order => {
@@ -117,13 +118,23 @@ export class ordersDeliveryComponent implements OnInit {
             const articleId = detail.articleId;
             const quantity = detail.quantity;
   
-            if (this.articleQuantityMap.has(articleId)) {
-              this.articleQuantityMap.set(articleId, this.articleQuantityMap.get(articleId)! + quantity);
-            } else {
-              this.articleQuantityMap.set(articleId, quantity);
-            }
+            this.ordersdeliveryService.getArticle(articleId).subscribe(
+              (article) => {
+                const articleLabel = article.label;
+  
+                if (this.articleQuantityMap.has(articleLabel)) {
+                  this.articleQuantityMap.set(articleLabel, this.articleQuantityMap.get(articleLabel)! + quantity);
+                } else {
+                  this.articleQuantityMap.set(articleLabel, quantity);
+                }
+  
+                this.cdr.markForCheck();
+              },
+              (error) => {
+                console.error('Error loading article', error);
+              }
+            );
           });
-          this.cdr.markForCheck();
         },
         (error) => {
           console.error('Error loading order details', error);
@@ -132,7 +143,5 @@ export class ordersDeliveryComponent implements OnInit {
     });
   }
   
-  
 
-
-}
+  }
