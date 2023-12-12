@@ -27,6 +27,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { ClientformModule } from './clientform/clientform.module';
+import { ClientsModule } from './clients/clients.module';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ClientformModule } from './clientform/clientform.module';
   imports: [BrowserModule,
       AppRoutingModule,
       UsersModule,
+      ClientsModule,
       NavbarModule,
       LoginformModule,
       OrderDetailsModule,
