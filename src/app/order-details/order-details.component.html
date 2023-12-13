@@ -26,11 +26,11 @@
             <ng-container matColumnDef="quantity">
                 <th mat-header-cell *matHeaderCellDef> Caisses </th>
                 <td mat-cell *matCellDef="let element" [ngClass]="{
-                    'surplus': element.defaultQuantity + element.surplusQuantity !== element.defaultQuantity,
-                    'default': element.defaultQuantity + element.surplusQuantity === element.defaultQuantity}">
+                    'surplus': element.quantity + element.surplusQuantity !== element.quantity,
+                    'default': element.quantity + element.surplusQuantity === element.quantity}">
                     <div class="quantity-container">
                         <div *ngIf="!element.editing; else displayQuantity" class="displayQuantity">
-                            {{ element.defaultQuantity + element.surplusQuantity }}
+                            {{ element.quantity + element.surplusQuantity }}
                         </div>
                         <ng-template #displayQuantity>
                             <div class="editing-container">

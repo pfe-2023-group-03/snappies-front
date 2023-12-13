@@ -30,8 +30,7 @@ export class OrderDetailsService {
 
   updateOrderDetails(orderId: number, articleId: number, newQuantity: number) {
     const body = {
-      quantity: newQuantity,
-      default: false
+      surplusQuantity: newQuantity,
     }
     return this.http.patch(`${this.apiUrl}/order-details/updateQuantity/${orderId}/${articleId}`, body);
   }
@@ -49,8 +48,9 @@ export class OrderDetailsService {
 
   updateSurplusQuantity(deliveryId: number, articleId: number, newQuantity: number) {
     const body = {
-      quantity: newQuantity
-    }
-    return this.http.patch(`${this.apiUrl}/surplus/updateQuantity/${deliveryId}/${articleId}`, body);
+      surplusQuantity: newQuantity
+    };
+
+    return this.http.patch<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`, body);
   }
 }

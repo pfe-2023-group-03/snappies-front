@@ -3,7 +3,6 @@ import { ordersDeliveryService } from './ordersDelivery.service';
 import { NavigationService } from '../services/navigation.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
 
 
@@ -28,15 +27,13 @@ export class ordersDeliveryComponent implements OnInit {
     private ordersdeliveryService: ordersDeliveryService,
     private navigationService: NavigationService,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
     private cdr: ChangeDetectorRef 
   ) {}
 
   ngOnInit(): void {
-    this.getDeliveryAndOrders();
+    this.getSurplusQuantity();
   }
   ngAfterViewInit(): void {
-    this.getSurplusQuantity();
     this.calculateForEachBoxesQuantity();
     this.cdr.detectChanges();
   }
@@ -117,12 +114,12 @@ export class ordersDeliveryComponent implements OnInit {
         (orderDetails) => {
           orderDetails.forEach(detail => {
             const articleId = detail.articleId;
-            const quantity = detail.defaultQuantity;
+            const quantity = detail.quantity;
   
             this.ordersdeliveryService.getArticle(articleId).subscribe(
               (article) => {
                 const articleLabel = article.label;
-  
+
                 if (this.articleQuantityMap.has(articleLabel)) {
                   this.articleQuantityMap.set(articleLabel, this.articleQuantityMap.get(articleLabel)! + quantity);
                 } else {
@@ -144,16 +141,12 @@ export class ordersDeliveryComponent implements OnInit {
     });
 
     this.surplusQuantityDeliveries.forEach( surplus => {
-      console.log('surplus',surplus);
-      const surplusQuantity = surplus.quantity;
+      const surplusQuantity = surplus.quantity - surplus.surplusQuantity;
       const articleId = surplus.articleId;
       let articleLabel = '';
       this.ordersdeliveryService.getArticle(articleId).subscribe(
         (article) => {
-          console.log('article',article);
           articleLabel = article.label;
-          console.log('articleLabel',articleLabel);
-
           if(this.articleSurplusQuantityMap.has(articleLabel)) {
             this.articleSurplusQuantityMap.set(articleLabel, this.articleSurplusQuantityMap.get(articleLabel)! + surplusQuantity);
           }else{
@@ -185,6 +178,7 @@ export class ordersDeliveryComponent implements OnInit {
         }
       );
     }
+    this.getDeliveryAndOrders();
   }
 
   calculateTotalSurplus(): number {
@@ -192,6 +186,7 @@ export class ordersDeliveryComponent implements OnInit {
   
     this.articleSurplusQuantityMap.forEach((surplusQuantity) => {
       totalSurplus += surplusQuantity;
+      
     });
   
     return totalSurplus;

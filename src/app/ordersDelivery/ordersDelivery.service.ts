@@ -69,5 +69,16 @@ export class ordersDeliveryService {
     return this.http.post<any[]>(`${this.apiUrl}/surplus/delivery/${deliveryId}`,{});
   }
   
+  updateSurplusQuantity(deliveryId: number, articleId: number, quantity: number): Observable<any> {
+    const body = {
+      surplusQuantity: quantity
+    };
+    // this.http.patch<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`, body).subscribe(
+    //   (response) => {
+    //     console.log('response', response);
+    //   }
+    // );
+    return this.http.patch<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`, body);
+  }
   
 }
