@@ -5,10 +5,6 @@
             <input formControlName="title" matInput>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Numéro d'identification</mat-label>
-            <input formControlName="num" matInput>
-        </mat-form-field>
-        <mat-form-field>
             <mat-label>Clients</mat-label>
             <mat-select multiple formControlName="clientlist">
                 <mat-option *ngFor="let client of clientlist" [value]="client.id">

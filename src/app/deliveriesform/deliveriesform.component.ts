@@ -18,11 +18,6 @@ export class DeliveriesformComponent implements OnInit {
     ngOnInit(): void {
       
       this.loadClients();
-      this.deliveriesForm = new FormGroup({
-        title: new FormControl('', Validators.required),
-        num: new FormControl('', [Validators.required, Validators.minLength(8)]),
-        clientlist: new FormControl([], Validators.required),
-      });
       //this.loadClients();
     }
   
@@ -51,17 +46,16 @@ export class DeliveriesformComponent implements OnInit {
       if (this.deliveriesForm.valid) {
         const deliveriesData = {
           title: this.deliveriesForm.value.title,
-          num: this.deliveriesForm.value.num,
           state: 'Default'
         };
-        this.deliveriesformService.postDeliveries(deliveriesData);
+         const createdDelivery = this.deliveriesformService.postDeliveries(deliveriesData);
         console.log("deliveries well registered");
         const listClientChoosen = this.deliveriesForm.value.clientlist;
         if(listClientChoosen){
           for (let i = 0; i < listClientChoosen.length; i++) {
             const orderData = {
               clientId: listClientChoosen[i],
-              deliveryId: this.deliveriesForm.value.num,
+              deliveryId: listClientChoosen.id,
               state: 'Delivery'
             };
             this.deliveriesformService.postorder(orderData);
