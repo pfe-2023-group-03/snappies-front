@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { ClientformModule } from './clientform/clientform.module';
 import { ClientsModule } from './clients/clients.module';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import { ClientsModule } from './clients/clients.module';
       OrderModule,
       MatDialogModule,
       ServiceWorkerModule.register('ngsw-worker.js', {
-  enabled: !isDevMode(),
+  enabled: environment.production,
   // Register the ServiceWorker as soon as the application is stable
   // or after 30 seconds (whichever comes first).
   registrationStrategy: 'registerWhenStable:30000'
