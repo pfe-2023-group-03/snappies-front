@@ -20,7 +20,7 @@ export class DeliveriesComponent implements OnInit{
   loadDeliveries(): void {
     this.deliveryService.getDeliveries().subscribe(
       (deliveries) => {
-        this.deliveries = deliveries;
+        this.deliveries = deliveries.sort((a, b) => a.title - b.title);
       },
       (error) => {
         console.error('Error loading deliveries', error);

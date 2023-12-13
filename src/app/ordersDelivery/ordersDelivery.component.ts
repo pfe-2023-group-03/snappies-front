@@ -54,7 +54,6 @@ export class ordersDeliveryComponent implements OnInit {
         this.delivery = data.delivery;
         this.orders = data.orders;
   
-        // Récupérer les détails du client pour chaque commande
         this.orders.forEach(order => {
           const clientId = order.clientId;
           this.ordersdeliveryService.getClientOfOrder(clientId).subscribe(
