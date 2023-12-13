@@ -21,6 +21,7 @@ export class ordersDeliveryComponent implements OnInit {
   deliveryBoxes: number = 0;
   Articles: any[] = [];
   articleQuantityMap: Map<string, number> = new Map();
+  articleSurplusQuantityMap: Map<string, number> = new Map();
 
 
   constructor(
@@ -54,7 +55,6 @@ export class ordersDeliveryComponent implements OnInit {
         this.delivery = data.delivery;
         this.orders = data.orders;
   
-        // Récupérer les détails du client pour chaque commande
         this.orders.forEach(order => {
           const clientId = order.clientId;
           this.ordersdeliveryService.getClientOfOrder(clientId).subscribe(
@@ -121,11 +121,19 @@ export class ordersDeliveryComponent implements OnInit {
             this.ordersdeliveryService.getArticle(articleId).subscribe(
               (article) => {
                 const articleLabel = article.label;
+
+                const surplusQuantity = Math.ceil(0.2 * quantity);
   
                 if (this.articleQuantityMap.has(articleLabel)) {
                   this.articleQuantityMap.set(articleLabel, this.articleQuantityMap.get(articleLabel)! + quantity);
                 } else {
                   this.articleQuantityMap.set(articleLabel, quantity);
+                }
+
+                if (this.articleSurplusQuantityMap.has(articleLabel)) {
+                  this.articleSurplusQuantityMap.set(articleLabel, this.articleSurplusQuantityMap.get(articleLabel)! + surplusQuantity);
+                } else {
+                  this.articleSurplusQuantityMap.set(articleLabel, surplusQuantity);
                 }
   
                 this.cdr.markForCheck();
@@ -142,6 +150,32 @@ export class ordersDeliveryComponent implements OnInit {
       );
     });
   }
-  
 
+  calculateTotalSurplus(): number {
+    let totalSurplus = 0;
+  
+    this.articleSurplusQuantityMap.forEach((surplusQuantity) => {
+      totalSurplus += surplusQuantity;
+    });
+  
+    return totalSurplus;
   }
+
+  updateDeliveryStatus(state: string): void {
+    const deliveryId = this.delivery.id;
+    if (deliveryId !== null) {
+      this.ordersdeliveryService.updateDeliveryStatus(Number(deliveryId), state).subscribe(
+        () => {
+          this.delivery.state = state;
+          this.cdr.markForCheck();
+        },
+        (error) => {
+          console.error('Error updating delivery status', error);
+        }
+      );
+    } else {
+      console.error('Delivery ID is null');
+    }
+  }
+
+}
