@@ -1,3 +1,4 @@
+<h1 id="title">Ajouter une commande</h1>
 <div *ngIf="orderError" class="error-message">Il existe déja une livraison pour ce client</div>
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="centered-form">
 

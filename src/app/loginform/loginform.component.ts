@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NavigationService } from '../services/navigation.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { NavigationService } from '../services/navigation.service';
   styleUrls: ['./loginform.component.css']
 })
 export class LoginformComponent implements OnInit{
-  
+  errorMessage: string = '';
+
   ngOnInit(): void {}
 
   hide = true;
@@ -25,7 +27,7 @@ export class LoginformComponent implements OnInit{
   constructor(
     private navigationService: NavigationService,
     private readonly authenticationService : AuthenticationService, 
-    private router : Router) {}
+    private dialog : MatDialog) {}
 
   login(): void {
     if (this.loginForm.invalid) {
@@ -42,9 +44,27 @@ export class LoginformComponent implements OnInit{
           this.navigationService.navigateTo('/');
         },
         (error) => {
-          console.error('Login error:', error);
+          if (error.status === 401) {
+            this.errorMessage = 'Accès non autorisé. Veuillez vérifier vos identifiants.';
+          } else if (error.status === 404) {
+            this.errorMessage = 'Ressource non trouvée. Veuillez réessayer ultérieurement.';
+          } else {
+            this.errorMessage = 'Une erreur s\'est produite lors de la connexion. Veuillez réessayer.';
+          }
+          this.openDialog();
         }
       );
     }    
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+      width: '300px',
+      data: { errorMessage: this.errorMessage }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('Boîte de dialogue fermée');
+    });
   }
 }
