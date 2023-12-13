@@ -1,0 +1,20 @@
+#wrapperDeliveriesForm{
+    display: flex;
+    flex-direction: column;
+    width : 100%;
+    margin-top: 15%;
+    justify-content: center;
+    align-items: center;
+}
+
+#deliveriesForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+
+#registerButton{
+    margin-top: 5%;
+}

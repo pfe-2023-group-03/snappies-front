@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { ClientformModule } from './clientform/clientform.module';
 import { ClientsModule } from './clients/clients.module';
+import { DeliveriesformModule } from './deliveriesform/deliveriesform.module';
 import { environment } from 'src/environments/environment';
 
 
@@ -46,6 +47,7 @@ import { environment } from 'src/environments/environment';
       MatToolbarModule,
       MatSlideToggleModule,
       DeliveriesModule,
+      DeliveriesformModule,
       MatListModule,
       UserformModule,
       ClientformModule,
