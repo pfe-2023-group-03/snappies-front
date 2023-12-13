@@ -42,4 +42,15 @@ export class OrderDetailsService {
   
     return this.http.patch(`${this.apiUrl}/orders/${order.id}`, body);
   }
+
+  getSurplus(articleId: number, deliveryId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`);
+  }
+
+  updateSurplusQuantity(deliveryId: number, articleId: number, newQuantity: number) {
+    const body = {
+      quantity: newQuantity
+    }
+    return this.http.patch(`${this.apiUrl}/surplus/updateQuantity/${deliveryId}/${articleId}`, body);
+  }
 }

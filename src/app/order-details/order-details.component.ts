@@ -41,6 +41,9 @@ export class OrderDetailsComponent implements OnInit {
     this.orderDetailsService.getOrder(id).subscribe(
       (order) => {
         this.order = order;
+
+        const deliverId = this.order.deliveryId;
+        console.log(deliverId);
   
         forkJoin([
           this.orderDetailsService.getClient(this.order.clientId),
@@ -51,6 +54,7 @@ export class OrderDetailsComponent implements OnInit {
             this.order.orderDetails = orderDetails;
 
             this.order.orderDetails.forEach((detail:any) => {
+              this.orderDetailsService.getSurplus(detail.articleId, deliverId);
               this.getArticleName(detail.articleId);
             });
 
@@ -92,6 +96,10 @@ export class OrderDetailsComponent implements OnInit {
   saveQuantity(element: any): void {
     const { orderId, articleId, newQuantity, defaultQuantity } = element;
     const QuantityToAdd = newQuantity - defaultQuantity;
+
+    const deliverId = this.order.deliveryId;
+    console.log(deliverId);
+
     this.orderDetailsService.updateOrderDetails(orderId, articleId, QuantityToAdd).subscribe(
       (response) => {
         element.surplusQuantity = QuantityToAdd;
@@ -101,6 +109,10 @@ export class OrderDetailsComponent implements OnInit {
         console.error('Error saving quantity:', error);
       }
     );
+
+    const updatedQuantity = defaultQuantity + QuantityToAdd
+
+    this.orderDetailsService.updateSurplusQuantity(articleId, deliverId, updatedQuantity);
   }
 
   isUserAdmin(): boolean {

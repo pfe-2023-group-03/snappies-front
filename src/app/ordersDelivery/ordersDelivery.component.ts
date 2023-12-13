@@ -20,9 +20,9 @@ export class ordersDeliveryComponent implements OnInit {
   clientDetails: any = {};
   deliveryBoxes: number = 0;
   Articles: any[] = [];
+  surplusQuantityDeliveries: any[] = [];
   articleQuantityMap: Map<string, number> = new Map();
   articleSurplusQuantityMap: Map<string, number> = new Map();
-
 
   constructor(
     private ordersdeliveryService: ordersDeliveryService,
@@ -36,6 +36,7 @@ export class ordersDeliveryComponent implements OnInit {
     this.getDeliveryAndOrders();
   }
   ngAfterViewInit(): void {
+    this.getSurplusQuantity();
     this.calculateForEachBoxesQuantity();
     this.cdr.detectChanges();
   }
@@ -116,13 +117,11 @@ export class ordersDeliveryComponent implements OnInit {
         (orderDetails) => {
           orderDetails.forEach(detail => {
             const articleId = detail.articleId;
-            const quantity = detail.defaultQuantity + detail.surplusQuantity;
+            const quantity = detail.defaultQuantity;
   
             this.ordersdeliveryService.getArticle(articleId).subscribe(
               (article) => {
                 const articleLabel = article.label;
-
-                const surplusQuantity = Math.ceil(0.2 * quantity);
   
                 if (this.articleQuantityMap.has(articleLabel)) {
                   this.articleQuantityMap.set(articleLabel, this.articleQuantityMap.get(articleLabel)! + quantity);
@@ -130,12 +129,6 @@ export class ordersDeliveryComponent implements OnInit {
                   this.articleQuantityMap.set(articleLabel, quantity);
                 }
 
-                if (this.articleSurplusQuantityMap.has(articleLabel)) {
-                  this.articleSurplusQuantityMap.set(articleLabel, this.articleSurplusQuantityMap.get(articleLabel)! + surplusQuantity);
-                } else {
-                  this.articleSurplusQuantityMap.set(articleLabel, surplusQuantity);
-                }
-  
                 this.cdr.markForCheck();
               },
               (error) => {
@@ -149,6 +142,49 @@ export class ordersDeliveryComponent implements OnInit {
         }
       );
     });
+
+    this.surplusQuantityDeliveries.forEach( surplus => {
+      console.log('surplus',surplus);
+      const surplusQuantity = surplus.quantity;
+      const articleId = surplus.articleId;
+      let articleLabel = '';
+      this.ordersdeliveryService.getArticle(articleId).subscribe(
+        (article) => {
+          console.log('article',article);
+          articleLabel = article.label;
+          console.log('articleLabel',articleLabel);
+
+          if(this.articleSurplusQuantityMap.has(articleLabel)) {
+            this.articleSurplusQuantityMap.set(articleLabel, this.articleSurplusQuantityMap.get(articleLabel)! + surplusQuantity);
+          }else{
+            this.articleSurplusQuantityMap.set(articleLabel, surplusQuantity);
+          }
+        },
+        (error) => {
+          console.error('Error loading article', error);
+        }
+      ); 
+    });
+  }
+
+
+  getSurplusQuantity() {
+    const id = this.route.snapshot.paramMap.get('deliveryId');
+    const deliveryId = Number(id);
+
+    if(deliveryId !== null) {
+      this.ordersdeliveryService.getSurplus(deliveryId).subscribe( 
+        (surplus) => {
+          surplus.forEach( (s: any) => {
+            this.surplusQuantityDeliveries.push(s);
+          }
+          );
+        },
+        (error) => {
+          console.error('Error loading surplus', error);
+        }
+      );
+    }
   }
 
   calculateTotalSurplus(): number {
