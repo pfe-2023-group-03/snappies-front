@@ -13,12 +13,13 @@
     text-align: center;
   }
   
-  .boxes, .surplus {
+  .boxes {
     padding: 15px;
     border-radius: 5px;
     
   }
-  .surplus{
+  .surplus-boxes{
+    margin-top: 5%;
     margin-bottom: 5%;
   }
   
