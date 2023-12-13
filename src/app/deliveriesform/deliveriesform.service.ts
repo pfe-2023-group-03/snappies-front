@@ -16,6 +16,7 @@ export class DeliveriesformService {
     }
 
     postDeliveries(deliveriesData: any): Observable<any> {
+        console.log("postDeliveries");
         return this.http.post<any>(`${this.apiUrl}/deliveries`, deliveriesData);
     }
 
