@@ -30,8 +30,7 @@ export class OrderDetailsService {
 
   updateOrderDetails(orderId: number, articleId: number, newQuantity: number) {
     const body = {
-      quantity: newQuantity,
-      default: false
+      surplusQuantity: newQuantity,
     }
     return this.http.patch(`${this.apiUrl}/order-details/updateQuantity/${orderId}/${articleId}`, body);
   }
@@ -41,5 +40,17 @@ export class OrderDetailsService {
     const body = { state };
   
     return this.http.patch(`${this.apiUrl}/orders/${order.id}`, body);
+  }
+
+  getSurplus(articleId: number, deliveryId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`);
+  }
+
+  updateSurplusQuantity(deliveryId: number, articleId: number, newQuantity: number) {
+    const body = {
+      surplusQuantity: newQuantity
+    };
+
+    return this.http.patch<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`, body);
   }
 }

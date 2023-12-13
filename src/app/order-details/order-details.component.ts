@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { OrderDetailsService } from './order-details.service';
 import { NavigationService } from '../services/navigation.service';
 import { forkJoin } from 'rxjs';
+import { ordersDeliveryService } from '../ordersDelivery/ordersDelivery.service'
 
 @Component({
   selector: 'app-order-details',
@@ -26,7 +27,8 @@ export class OrderDetailsComponent implements OnInit {
     private orderDetailsService: OrderDetailsService,
     private navigationService: NavigationService,
     private authService : AuthenticationService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private ordersdeliveryService: ordersDeliveryService
   ) {}
 
   
@@ -41,7 +43,7 @@ export class OrderDetailsComponent implements OnInit {
     this.orderDetailsService.getOrder(id).subscribe(
       (order) => {
         this.order = order;
-  
+
         forkJoin([
           this.orderDetailsService.getClient(this.order.clientId),
           this.orderDetailsService.getOrderDetails(this.order.id)
@@ -51,6 +53,7 @@ export class OrderDetailsComponent implements OnInit {
             this.order.orderDetails = orderDetails;
 
             this.order.orderDetails.forEach((detail:any) => {
+              // this.orderDetailsService.getSurplus(detail.articleId, deliverId);
               this.getArticleName(detail.articleId);
             });
 
@@ -89,19 +92,25 @@ export class OrderDetailsComponent implements OnInit {
     }
   }
 
-  saveQuantity(element: any): void {
-    const { orderId, articleId, newQuantity, defaultQuantity } = element;
-    const QuantityToAdd = newQuantity - defaultQuantity;
-    this.orderDetailsService.updateOrderDetails(orderId, articleId, QuantityToAdd).subscribe(
-      (response) => {
-        element.surplusQuantity = QuantityToAdd;
-        element.editing = false;
-      },
-      (error) => {
-        console.error('Error saving quantity:', error);
-      }
-    );
+  async saveQuantity(element: any): Promise<void> {
+    try {
+      const { orderId, articleId, newQuantity, quantity } = element;
+      const QuantityToAdd = newQuantity - quantity;
+  
+      const deliveryId = this.order.deliveryId;
+  
+      await this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, QuantityToAdd).toPromise();
+  
+      await this.orderDetailsService.updateOrderDetails(orderId, articleId, QuantityToAdd).toPromise();
+  
+      element.quantity = quantity + QuantityToAdd;
+      element.editing = false;
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.error('Error saving quantity:', error);
+    }
   }
+  
 
   isUserAdmin(): boolean {
     const user = this.authService.getUser();
@@ -119,6 +128,5 @@ export class OrderDetailsComponent implements OnInit {
       }
     );
   }
-
 
 }
