@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { NavigationService } from '../services/navigation.service';
 
 @NgModule({
   declarations: [DeliveriesformComponent],
@@ -19,6 +20,7 @@ import { MatOptionModule } from '@angular/material/core';
     ReactiveFormsModule,
     MatSelectModule
   ],
+  providers :[NavigationService],
   exports: [DeliveriesformComponent],
 })
 export class DeliveriesformModule {}

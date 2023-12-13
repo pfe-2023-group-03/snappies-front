@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeliveriesformService } from './deliveriesform.service';
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-deliveriesform',
@@ -16,7 +17,7 @@ export class DeliveriesformComponent implements OnInit {
 
   clientlist: any[] = [];
 
-  constructor(private deliveriesformService: DeliveriesformService) { }
+  constructor(private deliveriesformService: DeliveriesformService, private navigationService : NavigationService) { }
 
   ngOnInit(): void {
     this.loadClients();
@@ -38,25 +39,25 @@ export class DeliveriesformComponent implements OnInit {
 
   onSubmit(): void {
     if (this.deliveriesForm.valid) {
-      console.log("la méthode est appelée")
       const deliveriesData = {
         title: this.deliveriesForm.value.title,
         state: 'default'
       };
-      const createdDelivery = this.deliveriesformService.postDeliveries(deliveriesData);
-      console.log("deliveries well registered");
-      const listClientChoosen = this.deliveriesForm.value.clientlist;
-      if (listClientChoosen) {
-        for (let i = 0; i < listClientChoosen.length; i++) {
-          const orderData = {
-            clientId: listClientChoosen[i],
-            deliveryId: listClientChoosen.id,
-            state: 'delivery'
-          };
-          this.deliveriesformService.postorder(orderData);
-          console.log("order association well registered");
+      this.deliveriesformService.postDeliveries(deliveriesData).subscribe((delivery) => {
+        const listClientChoosen = this.deliveriesForm.value.clientlist;
+        if (listClientChoosen) {
+          for (let i = 0; i < listClientChoosen.length; i++) {
+            const orderData = {
+              clientId: listClientChoosen[i],
+              deliveryId: delivery.id,
+              state: 'delivery'
+            };
+            this.deliveriesformService.postorder(orderData).subscribe((order) => {
+            });
+          }
         }
-      }
-    }
+      })
+    } 
+    this.navigationService.navigateTo('/');
   }
 }
