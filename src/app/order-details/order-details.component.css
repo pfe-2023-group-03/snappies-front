@@ -71,4 +71,13 @@
     margin-top: 10%;
 
   }
+
+  .surplus {
+    color: red;
+    font-style: bold;
+  }
+  
+  .default {
+    color: black;
+  }
   

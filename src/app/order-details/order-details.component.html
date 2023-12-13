@@ -25,7 +25,9 @@
 
             <ng-container matColumnDef="quantity">
                 <th mat-header-cell *matHeaderCellDef> Caisses </th>
-                <td mat-cell *matCellDef="let element">
+                <td mat-cell *matCellDef="let element" [ngClass]="{
+                    'surplus': element.defaultQuantity + element.surplusQuantity !== element.defaultQuantity,
+                    'default': element.defaultQuantity + element.surplusQuantity === element.defaultQuantity}">
                     <div class="quantity-container">
                         <div *ngIf="!element.editing; else displayQuantity" class="displayQuantity">
                             {{ element.defaultQuantity + element.surplusQuantity }}
@@ -33,9 +35,6 @@
                         <ng-template #displayQuantity>
                             <div class="editing-container">
                                 <input *ngIf="element.editing" type="number" [(ngModel)]="element.newQuantity" (keyup.enter)="saveQuantity(element)" class="small-input"/>
-                                <button *ngIf="element.editing" class="btn-save" mat-icon-button color="primary" (click)="saveQuantity(element)">
-                                    <mat-icon>done</mat-icon>
-                                </button>
                             </div>
                         </ng-template>
                     </div>
