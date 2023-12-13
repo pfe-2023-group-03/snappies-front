@@ -13,7 +13,14 @@ export class DeliveryService {
   constructor(private http: HttpClient) { }
 
   getDeliveries(): Observable<any[]> {
-      return this.http.get<any[]>(this.apiUrlAll);
+    return this.http.get<any[]>(this.apiUrlAll);
   }
 
+  getDeliveriesByUser(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrlAll}/users/${userId}`);
+  }
+
+  assignDelivery(delivery: any): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrlAll}/${delivery.id}`, delivery);
+  }
 }

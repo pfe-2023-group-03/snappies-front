@@ -11,9 +11,10 @@
 
 .mat-header-cell {
     text-align: center;
-    padding: 5%;
 }
 
 .mat-cell {
-    padding: 5%;
+    padding: 2%;
+    white-space: normal;
+    word-wrap: break-word;
 }
