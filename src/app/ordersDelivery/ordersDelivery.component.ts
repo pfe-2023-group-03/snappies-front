@@ -43,17 +43,6 @@ export class ordersDeliveryComponent implements OnInit {
     this.navigationService.navigateTo(route);
   }
 
-  getDeliverer(userId: number): void {
-    this.ordersdeliveryService.getDeliverer(userId).subscribe(
-      (deliverer) => {
-        this.delivery.user = deliverer;
-      },
-      (error) => {
-        console.error('Error loading deliverer', error);
-      }
-    );
-  }
-
   getDeliveryAndOrders(): void {
     this.route.paramMap.pipe(
       switchMap(params => {
@@ -77,7 +66,6 @@ export class ordersDeliveryComponent implements OnInit {
           );
         });
         this.getDeliveryBoxes();
-        this.getDeliverer(this.delivery.userId);
         this.calculateForEachBoxesQuantity();
       },
       (error) => {

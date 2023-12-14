@@ -15,10 +15,6 @@ export class ordersDeliveryService {
     return this.http.get<any>(`${this.apiUrl}/deliveries/${id}`); 
   }
 
-  getDeliverer(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/users/${userId}`);
-  }
-
   getOrdersOfDelivery(id : number): Observable<any[]> {
     return this.http.get<any>(`${this.apiUrl}/orders/delivery/${id}`);
   }
