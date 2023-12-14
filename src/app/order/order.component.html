@@ -1,4 +1,4 @@
-<h1 id="title">Ajouter une commande</h1>
+<h1 id="title">Créer une commande</h1>
 <div *ngIf="orderError" class="error-message">Il existe déja une livraison pour ce client</div>
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="centered-form">
 
@@ -16,7 +16,7 @@
   
   <div class="form-field">
     <mat-form-field>
-      <mat-label>Livraison</mat-label>
+      <mat-label>Tournée</mat-label>
       <mat-select formControlName="deliveryId">
         <mat-option *ngFor="let delivery of deliveries" [value]="delivery.id">
           {{ delivery.title }}
@@ -48,7 +48,7 @@
     </div>
   
     <div class="form-field">
-      <button mat-raised-button color="primary" type="submit" [disabled]="orderForm.invalid">Ajouter</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="orderForm.invalid">Créer</button>
     </div>
   
   </form>
