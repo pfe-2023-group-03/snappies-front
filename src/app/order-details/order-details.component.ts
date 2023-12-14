@@ -138,6 +138,10 @@ export class OrderDetailsComponent implements OnInit {
   changeStatusToDone(): void {
     const dialogRef = this.dialog.open(OrderConfirmationDialogComponent, {
       width: '400px',
+      data: {
+        order: this.order,
+        articleNameMap: this.articleNameMap,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

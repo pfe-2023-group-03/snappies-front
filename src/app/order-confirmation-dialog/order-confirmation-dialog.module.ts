@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { FormsModule } from '@angular/forms';
 import { OrderConfirmationDialogComponent } from './order-confirmation-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -12,7 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     CommonModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    FormsModule
   ],
   exports: [OrderConfirmationDialogComponent]
 })

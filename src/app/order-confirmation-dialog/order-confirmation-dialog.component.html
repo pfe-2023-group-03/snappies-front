@@ -4,6 +4,39 @@
 <div mat-dialog-content>
   <p>Voulez-vous vraiment valider la commande?</p>
 </div>
+
+<div *ngIf="order">
+<table mat-table [dataSource]="order.orderDetails" class="order-detail-table">
+
+    <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Nom </th>
+    <td mat-cell *matCellDef="let element"> {{ articleNameMap.get(element.articleId)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef> Caisses </th>
+    <td mat-cell *matCellDef="let element" [ngClass]="{
+        'surplus': element.quantity + element.surplusQuantity !== element.quantity,
+        'default': element.quantity + element.surplusQuantity === element.quantity}">
+        <div class="quantity-container">
+        <div *ngIf="!element.editing; else displayQuantity" class="displayQuantity">
+            {{ element.quantity + element.surplusQuantity }}
+        </div>
+        <ng-template #displayQuantity>
+            <div class="editing-container">
+            <input *ngIf="element.editing" type="number" [(ngModel)]="element.newQuantity" (keyup.enter)="saveQuantity(element)" class="small-input"/>
+            </div>
+        </ng-template>
+        </div>
+    </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>
+
+
 <div mat-dialog-actions class="dialog-actions">
   <span class="spacer"></span>
 
@@ -18,4 +51,7 @@
   </button>
 
   <span class="spacer"></span>
+
 </div>
+
+
