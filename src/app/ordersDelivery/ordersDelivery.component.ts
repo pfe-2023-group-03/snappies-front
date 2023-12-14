@@ -33,6 +33,7 @@ export class ordersDeliveryComponent implements OnInit {
   ngOnInit(): void {
     this.getSurplusQuantity();
   }
+
   ngAfterViewInit(): void {
     this.calculateForEachBoxesQuantity();
     this.cdr.detectChanges();
@@ -40,6 +41,17 @@ export class ordersDeliveryComponent implements OnInit {
 
   navigateTo(route: string): void {
     this.navigationService.navigateTo(route);
+  }
+
+  getDeliverer(userId: number): void {
+    this.ordersdeliveryService.getDeliverer(userId).subscribe(
+      (deliverer) => {
+        this.delivery.user = deliverer;
+      },
+      (error) => {
+        console.error('Error loading deliverer', error);
+      }
+    );
   }
 
   getDeliveryAndOrders(): void {
@@ -65,6 +77,7 @@ export class ordersDeliveryComponent implements OnInit {
           );
         });
         this.getDeliveryBoxes();
+        this.getDeliverer(this.delivery.userId);
         this.calculateForEachBoxesQuantity();
       },
       (error) => {
