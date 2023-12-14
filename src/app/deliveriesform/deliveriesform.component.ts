@@ -43,7 +43,6 @@ export class DeliveriesformComponent implements OnInit {
         title: this.deliveriesForm.value.title,
         state: 'preparation'
       };
-      // state est hardode ici
       this.deliveriesformService.postDeliveries(deliveriesData).subscribe((delivery) => {
         const listClientChoosen = this.deliveriesForm.value.clientlist;
         if (listClientChoosen) {
@@ -54,6 +53,7 @@ export class DeliveriesformComponent implements OnInit {
               state: 'delivery'
             };
             this.deliveriesformService.postorder(orderData).subscribe((order) => {
+              this.navigationService.navigateTo('/');
             });
           }
         }

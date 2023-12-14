@@ -31,22 +31,24 @@ export class DeliveriesComponent implements OnInit{
     );
   }
 
-  assignDelivery(delivery: any): void {
-    const response = this.hasDelivery();
-    if (response !== null && response !== undefined) {
+  async assignDelivery(delivery: any): Promise<void> {
+    const response = await this.hasDelivery();
+    console.log(response);
+    if (response === null || response === undefined) {
+      delivery.userId = this.authenticationService.getUser().id;
+
+      this.deliveryService.assignDelivery(delivery).subscribe(
+        (response) => {
+          this.navigationService.navigateTo('delivery/' + delivery.id);
+        },
+        (error) => {
+          console.error('Error assigning delivery', error);
+        }
+      );
+    } else {
       this.openDialog('Vous avez déjà une livraison en cours.');
       return;
     }
-    delivery.userId = this.authenticationService.getUser().id;
-
-    this.deliveryService.assignDelivery(delivery).subscribe(
-      (response) => {
-        this.navigationService.navigateTo('delivery/' + delivery.id);
-      },
-      (error) => {
-        console.error('Error assigning delivery', error);
-      }
-    );
   }
 
   openDialog(errorMessage: string): void {
@@ -69,7 +71,9 @@ export class DeliveriesComponent implements OnInit{
       const user = this.authenticationService.getUser();
       this.deliveryService.getDeliveriesByUser(user.id).subscribe(
         (deliveries) => {
+          console.log(deliveries);
           if (deliveries.length > 0) {
+            console.log('deliveries[0]',deliveries[0]);
             resolve(deliveries[0]);
           } else {
             resolve(null);
