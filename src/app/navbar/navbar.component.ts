@@ -31,11 +31,13 @@ export class NavbarComponent implements OnInit {
   }
 
   isUserAdmin(): boolean {
+    console.log("isUserAdmin", this.authService.getUser());
     const user = this.authService.getUser();
     return user?.role === 'admin';
   }
 
   isUSerAuthorized(): boolean {
+    console.log("isUSerAuthorized", this.authService.getUser());
     const user = this.authService.getUser();
     return user?.role === 'admin' || user?.role === 'deliverer';
   }
