@@ -58,13 +58,9 @@ export class LoginformComponent implements OnInit{
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+    this.dialog.open(ErrorDialogComponent, {
       width: '300px',
       data: { errorMessage: this.errorMessage }
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('Boîte de dialogue fermée');
     });
   }
 }
