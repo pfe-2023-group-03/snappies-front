@@ -69,15 +69,15 @@ export class ordersDeliveryService {
     return this.http.post<any[]>(`${this.apiUrl}/surplus/delivery/${deliveryId}`,{});
   }
   
-  updateSurplusQuantity(deliveryId: number, articleId: number, quantity: number): Observable<any> {
+  updateSurplusQuantity(deliveryId: number, articleId: number, quantity: number, isPreparation :boolean): Observable<any> {
+    if(isPreparation) {
+      quantity = -quantity;
+      console.log('quantity : ',quantity);
+    }
     const body = {
       surplusQuantity: quantity
     };
-    // this.http.patch<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`, body).subscribe(
-    //   (response) => {
-    //     console.log('response', response);
-    //   }
-    // );
+    console.log('body : ',body);
     return this.http.patch<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`, body);
   }
   

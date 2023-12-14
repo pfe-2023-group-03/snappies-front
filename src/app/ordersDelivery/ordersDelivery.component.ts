@@ -161,7 +161,7 @@ export class ordersDeliveryComponent implements OnInit {
   }
 
 
-  getSurplusQuantity() {
+  async getSurplusQuantity() {
     const id = this.route.snapshot.paramMap.get('deliveryId');
     const deliveryId = Number(id);
 
@@ -178,7 +178,7 @@ export class ordersDeliveryComponent implements OnInit {
         }
       );
     }
-    this.getDeliveryAndOrders();
+    await this.getDeliveryAndOrders();
   }
 
   calculateTotalSurplus(): number {
