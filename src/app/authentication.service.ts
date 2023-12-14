@@ -38,27 +38,16 @@ export class AuthenticationService {
   }
 
   isLogged(): boolean {
-    return localStorage.getItem('token') !== null || sessionStorage.getItem('token') !== null;
+    if (this.getToken() && Object.keys(this.getUser()).length !== 0) {
+      return true;
+    } else {
+      this.signOut();
+      return false;
+    }
   }
 
   getToken(): string {
     return localStorage.getItem('token') || sessionStorage.getItem('token') || '';
-  }
-
-  verifyToken(): Observable<any> {
-    const response = this.http.get<any>(`${this.apiUrl}/verify`, {
-      headers: {
-        Authorization: `Bearer ${this.getToken()}`
-      }
-    });
-
-    response.subscribe(res => {
-      if (res.status === 401) {
-        this.signOut();
-      }
-    });
-
-    return response;
   }
 
   getUser(): any {
