@@ -74,9 +74,10 @@ export class ordersDeliveryService {
   }
   
   updateSurplusQuantity(deliveryId: number, articleId: number, quantity: number, isPreparation :boolean): Observable<any> {
+    console.log('isPreparation : ',isPreparation)
     if(isPreparation) {
       quantity = -quantity;
-      console.log('quantity : ',quantity);
+      console.log('quantity updateSurplusQuantity Service : ',quantity);
     }
     const body = {
       surplusQuantity: quantity

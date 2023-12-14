@@ -51,9 +51,10 @@ export class OrderDetailsComponent implements OnInit {
           ([client, orderDetails]) => {
             this.order.client = client;
             this.order.orderDetails = orderDetails;
+            console.log('orderDetails', orderDetails);
 
             this.order.orderDetails.forEach((detail:any) => {
-              // this.orderDetailsService.getSurplus(detail.articleId, deliverId);
+              detail.quantityToShow = detail.quantity + detail.surplusQuantity;
               this.getArticleName(detail.articleId);
             });
 
@@ -92,31 +93,52 @@ export class OrderDetailsComponent implements OnInit {
     }
   }
 
-  async saveQuantity(element: any): Promise<void> {
+  saveQuantity(element: any): void {
     try {
-      const { orderId, articleId, newQuantity, quantity } = element;
-      const quantityToAdd = newQuantity - quantity;
+      const { orderId, articleId, newQuantity, quantityToShow, quantity } = element;
+      const quantityToAdd = newQuantity - quantityToShow;
       let isPreparation = false;
   
       const deliveryId = this.order.deliveryId;
 
-      await this.ordersdeliveryService.getDelivery(deliveryId).subscribe(
+      this.ordersdeliveryService.getDelivery(deliveryId).subscribe(
         (response) => {
-          const delivery = response;
-          console.log('delivery', delivery);
+          const delivery = response;  
           if(delivery.state === 'preparation') {
-              isPreparation = true;
-              this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).toPromise();
+            isPreparation = true;
+            console.log('isPreparation true : ',isPreparation);
+            this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).subscribe(
+              (reponse) =>{
+                this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).subscribe(
+                  ()=>{
+                    this.loadOrderDetails();
+                  }
+                );
+              },
+              (error) => {
+                return error;
+              }
+            );
+          }else{
+            console.log('isPreparation false : ',isPreparation);
+            this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).subscribe(
+              (reponse) => {
+                this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).subscribe(
+                  ()=>{
+                    this.loadOrderDetails();
+                  }
+                );
+              },
+              (error) => {
+                return error;
+              }
+            );;
           }
         }
       );
   
-      await this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).toPromise();
-  
-      element.quantity = quantity + quantityToAdd;
+      element.quantity = quantityToShow + quantityToAdd;
       element.editing = false;
-      
-      await this.changeDetectorRef.detectChanges();
 
     } catch (error) {
       console.error('Error saving quantity:', error);
