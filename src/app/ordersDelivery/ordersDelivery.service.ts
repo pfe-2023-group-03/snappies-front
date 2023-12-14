@@ -15,6 +15,10 @@ export class ordersDeliveryService {
     return this.http.get<any>(`${this.apiUrl}/deliveries/${id}`); 
   }
 
+  getDeliverer(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/users/${userId}`);
+  }
+
   getOrdersOfDelivery(id : number): Observable<any[]> {
     return this.http.get<any>(`${this.apiUrl}/orders/delivery/${id}`);
   }
@@ -69,15 +73,16 @@ export class ordersDeliveryService {
     return this.http.post<any[]>(`${this.apiUrl}/surplus/delivery/${deliveryId}`,{});
   }
   
-  updateSurplusQuantity(deliveryId: number, articleId: number, quantity: number): Observable<any> {
+  updateSurplusQuantity(deliveryId: number, articleId: number, quantity: number, isPreparation :boolean): Observable<any> {
+    console.log('isPreparation : ',isPreparation)
+    if(isPreparation) {
+      quantity = -quantity;
+      console.log('quantity updateSurplusQuantity Service : ',quantity);
+    }
     const body = {
       surplusQuantity: quantity
     };
-    // this.http.patch<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`, body).subscribe(
-    //   (response) => {
-    //     console.log('response', response);
-    //   }
-    // );
+    console.log('body : ',body);
     return this.http.patch<any>(`${this.apiUrl}/surplus/${deliveryId}/${articleId}`, body);
   }
   

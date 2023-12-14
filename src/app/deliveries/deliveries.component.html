@@ -15,3 +15,7 @@
       </div>
     </div>
   </div>
+
+  <button mat-fab color="primary" (click)="onFabClick()" *ngIf="!isAdmin()">
+    <mat-icon>task_alt</mat-icon>
+  </button>

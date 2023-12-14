@@ -56,9 +56,10 @@ export class OrderDetailsComponent implements OnInit {
           ([client, orderDetails]) => {
             this.order.client = client;
             this.order.orderDetails = orderDetails;
+            console.log('orderDetails', orderDetails);
 
             this.order.orderDetails.forEach((detail:any) => {
-              // this.orderDetailsService.getSurplus(detail.articleId, deliverId);
+              detail.quantityToShow = detail.quantity + detail.surplusQuantity;
               this.getArticleName(detail.articleId);
             });
 
@@ -97,20 +98,53 @@ export class OrderDetailsComponent implements OnInit {
     }
   }
 
-  async saveQuantity(element: any): Promise<void> {
+  saveQuantity(element: any): void {
     try {
-      const { orderId, articleId, newQuantity, quantity } = element;
-      const QuantityToAdd = newQuantity - quantity;
+      const { orderId, articleId, newQuantity, quantityToShow, quantity } = element;
+      const quantityToAdd = newQuantity - quantityToShow;
+      let isPreparation = false;
   
       const deliveryId = this.order.deliveryId;
+
+      this.ordersdeliveryService.getDelivery(deliveryId).subscribe(
+        (response) => {
+          const delivery = response;  
+          if(delivery.state === 'preparation') {
+            isPreparation = true;
+            console.log('isPreparation true : ',isPreparation);
+            this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).subscribe(
+              (reponse) =>{
+                this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).subscribe(
+                  ()=>{
+                    this.loadOrderDetails();
+                  }
+                );
+              },
+              (error) => {
+                return error;
+              }
+            );
+          }else{
+            console.log('isPreparation false : ',isPreparation);
+            this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).subscribe(
+              (reponse) => {
+                this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).subscribe(
+                  ()=>{
+                    this.loadOrderDetails();
+                  }
+                );
+              },
+              (error) => {
+                return error;
+              }
+            );;
+          }
+        }
+      );
   
-      await this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, QuantityToAdd).toPromise();
-  
-      await this.orderDetailsService.updateOrderDetails(orderId, articleId, QuantityToAdd).toPromise();
-  
-      element.quantity = quantity + QuantityToAdd;
+      element.quantity = quantityToShow + quantityToAdd;
       element.editing = false;
-      this.changeDetectorRef.markForCheck();
+
     } catch (error) {
       console.error('Error saving quantity:', error);
     }
@@ -151,6 +185,8 @@ export class OrderDetailsComponent implements OnInit {
           (response) => {
             this.orderState = 'done';
             this.changeDetectorRef.detectChanges();
+            const numDelivery = this.order.deliveryId;
+            this.navigationService.navigateTo('/delivery/' + numDelivery);
           },
           (error) => {
             console.error('Error updating order status:', error);
