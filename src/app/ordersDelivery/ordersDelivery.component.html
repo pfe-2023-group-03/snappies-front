@@ -22,8 +22,8 @@
   </div>
 </div>
 
-<div class="boxes">
-  <p>Nombre de caisse a prendre : {{deliveryBoxes + calculateTotalSurplus()}}</p>
+<div *ngIf="delivery" class="boxes">
+  <p>Nombre de caisse : {{deliveryBoxes + calculateTotalSurplus()}}</p>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>Composition</mat-panel-title>
@@ -34,13 +34,18 @@
         {{ articleEntry[0] }} : {{ articleEntry[1] }}
       </div>
 
-      <div class="surplus-boxes">
+      <div *ngIf="delivery.state === 'preparation'"  class="surplus-boxes">
         Caisse en surplus a prendre : 
-
         <div *ngFor="let articleEntry of articleSurplusQuantityMap.entries()">
           {{ articleEntry[0] }} : {{ articleEntry[1] }}
         </div>
+      </div>
 
+      <div *ngIf="delivery.state === 'delivery'"  class="surplus-boxes">
+        Caisse en surplus disponible : 
+        <div *ngFor="let articleEntry of articleSurplusQuantityMap.entries()">
+          {{ articleEntry[0] }} : {{ articleEntry[1] }}
+        </div>
       </div>
 
     </div>
