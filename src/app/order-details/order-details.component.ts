@@ -95,17 +95,29 @@ export class OrderDetailsComponent implements OnInit {
   async saveQuantity(element: any): Promise<void> {
     try {
       const { orderId, articleId, newQuantity, quantity } = element;
-      const QuantityToAdd = newQuantity - quantity;
+      const quantityToAdd = newQuantity - quantity;
+      let isPreparation = false;
   
       const deliveryId = this.order.deliveryId;
+
+      await this.ordersdeliveryService.getDelivery(deliveryId).subscribe(
+        (response) => {
+          const delivery = response;
+          console.log('delivery', delivery);
+          if(delivery.state === 'preparation') {
+              isPreparation = true;
+              this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).toPromise();
+          }
+        }
+      );
   
-      await this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, QuantityToAdd).toPromise();
+      await this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).toPromise();
   
-      await this.orderDetailsService.updateOrderDetails(orderId, articleId, QuantityToAdd).toPromise();
-  
-      element.quantity = quantity + QuantityToAdd;
+      element.quantity = quantity + quantityToAdd;
       element.editing = false;
-      this.changeDetectorRef.markForCheck();
+      
+      await this.changeDetectorRef.detectChanges();
+
     } catch (error) {
       console.error('Error saving quantity:', error);
     }
