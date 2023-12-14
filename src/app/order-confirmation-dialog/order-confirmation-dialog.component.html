@@ -6,52 +6,44 @@
 </div>
 
 <div *ngIf="order">
-<table mat-table [dataSource]="order.orderDetails" class="order-detail-table">
+  <form [formGroup]="quantityForm">
+    <table mat-table [dataSource]="order.orderDetails" class="order-detail-table">
 
-    <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Nom </th>
-    <td mat-cell *matCellDef="let element"> {{ articleNameMap.get(element.articleId)}} </td>
-    </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nom </th>
+        <td mat-cell *matCellDef="let element"> {{ articleNameMap.get(element.articleId)}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="quantity">
-    <th mat-header-cell *matHeaderCellDef> Caisses </th>
-    <td mat-cell *matCellDef="let element" [ngClass]="{
-        'surplus': element.quantity + element.surplusQuantity !== element.quantity,
-        'default': element.quantity + element.surplusQuantity === element.quantity}">
-        <div class="quantity-container">
-        <div *ngIf="!element.editing; else displayQuantity" class="displayQuantity">
-            {{ element.quantity + element.surplusQuantity }}
-        </div>
-        <ng-template #displayQuantity>
-            <div class="editing-container">
-            <input *ngIf="element.editing" type="number" [(ngModel)]="element.newQuantity" (keyup.enter)="saveQuantity(element)" class="small-input"/>
-            </div>
-        </ng-template>
-        </div>
-    </td>
-    </ng-container>
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Caisses </th>
+        <td mat-cell *matCellDef="let element">
+            <div class="quantity-container">
+                <mat-form-field appearance="fill">
+                  <input matInput type="number" formControlName="{{'quantity_' + element.articleId}}" class="small-input" />
+                  <span matPrefix>{{ element.quantity + element.surplusQuantity }}</span>
+                </mat-form-field>
+            </div>              
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div mat-dialog-actions class="dialog-actions">
+      <span class="spacer"></span>
+
+      <button mat-button class="thumb-button" [mat-dialog-close]="true" cdkFocusInitial>
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+
+      <span class="spacer"></span>
+
+      <button mat-button class="thumb-button" [mat-dialog-close]="false">
+        <mat-icon>thumb_down</mat-icon>
+      </button>
+
+      <span class="spacer"></span>
+    </div>
+  </form>
 </div>
-
-
-<div mat-dialog-actions class="dialog-actions">
-  <span class="spacer"></span>
-
-  <button mat-button class="thumb-button" [mat-dialog-close]="true" cdkFocusInitial>
-    <mat-icon>thumb_up</mat-icon>
-  </button>
-
-  <span class="spacer"></span>
-
-  <button mat-button class="thumb-button" [mat-dialog-close]="false">
-    <mat-icon>thumb_down</mat-icon>
-  </button>
-
-  <span class="spacer"></span>
-
-</div>
-
-
