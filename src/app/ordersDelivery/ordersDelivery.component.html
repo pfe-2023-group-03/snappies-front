@@ -11,8 +11,8 @@
             <mat-panel-title>{{ delivery.state }}</mat-panel-title>
           </mat-expansion-panel-header>
           <div class="panel-content">
-            <button *ngIf="delivery.state === 'preparation' || delivery.state === 'delivery' "(click)="updateDeliveryStatus(delivery.state === 'preparation' ? 'delivery' : (delivery.state === 'delivery' ? 'finished' : 'Unknown State: ' + delivery.state))">
-              {{ delivery.state === 'preparation' ? 'delivery' : (delivery.state === 'delivery' ? 'finished' : 'Unknown State: ' + delivery.state) }}
+            <button *ngIf="delivery.state === 'preparation' || delivery.state === 'delivery' || delivery.state === 'finished'" (click)="updateDeliveryStatus(delivery.state === 'preparation' ? 'delivery' : (delivery.state === 'delivery' ? 'finished' : (delivery.state === 'finished' ? 'preparation' : 'Unknown State: ' + delivery.state)))">
+              {{ delivery.state === 'preparation' ? 'delivery' : (delivery.state === 'delivery' ? 'finished' : (delivery.state === 'finished' ? 'preparation' : 'Unknown State: ' + delivery.state)) }}
             </button>
           </div>
         </mat-expansion-panel>
