@@ -177,10 +177,14 @@ export class OrderDetailsComponent implements OnInit {
         articleNameMap: this.articleNameMap,
       },
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // User clicked "Valider" in the dialog
+        // Update the quantities in the order details
+        // TODO ICI
+  
+        // Update the order status to 'done'
         this.orderDetailsService.updateOrderStatus(this.order).subscribe(
           (response) => {
             this.orderState = 'done';
@@ -195,6 +199,7 @@ export class OrderDetailsComponent implements OnInit {
       }
     });
   }
+  
 
   // changeStatusToDone(): void {
   //   this.orderDetailsService.updateOrderStatus(this.order).subscribe(
