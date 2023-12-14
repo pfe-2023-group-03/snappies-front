@@ -56,7 +56,6 @@ export class OrderDetailsComponent implements OnInit {
           ([client, orderDetails]) => {
             this.order.client = client;
             this.order.orderDetails = orderDetails;
-            console.log('orderDetails', orderDetails);
 
             this.order.orderDetails.forEach((detail:any) => {
               detail.quantityToShow = detail.quantity + detail.surplusQuantity;
@@ -111,7 +110,6 @@ export class OrderDetailsComponent implements OnInit {
           const delivery = response;  
           if(delivery.state === 'preparation') {
             isPreparation = true;
-            console.log('isPreparation true : ',isPreparation);
             this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).subscribe(
               (reponse) =>{
                 this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).subscribe(
@@ -125,7 +123,6 @@ export class OrderDetailsComponent implements OnInit {
               }
             );
           }else{
-            console.log('isPreparation false : ',isPreparation);
             this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).subscribe(
               (reponse) => {
                 this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).subscribe(
@@ -183,6 +180,9 @@ export class OrderDetailsComponent implements OnInit {
         // User clicked "Valider" in the dialog
         // Update the quantities in the order details
         // TODO ICI
+        this.order.orderDetails.forEach((element: any) => {
+          this.saveQuantity(element);
+        });
   
         // Update the order status to 'done'
         this.orderDetailsService.updateOrderStatus(this.order).subscribe(
@@ -199,18 +199,5 @@ export class OrderDetailsComponent implements OnInit {
       }
     });
   }
-  
-
-  // changeStatusToDone(): void {
-  //   this.orderDetailsService.updateOrderStatus(this.order).subscribe(
-  //     (response) => {
-  //       this.orderState = 'done';
-  //       this.changeDetectorRef.detectChanges();
-  //     },
-  //     (error) => {
-  //       console.error('Error updating order status:', error);
-  //     }
-  //   );
-  // }
 
 }

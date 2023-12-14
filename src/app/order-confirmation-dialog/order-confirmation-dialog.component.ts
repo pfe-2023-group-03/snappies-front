@@ -26,23 +26,36 @@ export class OrderConfirmationDialogComponent {
     // Initialize form controls based on order details
     const formControls: { [key: string]: any } = {};
     this.order?.orderDetails.forEach((element: any) => {
-      console.log(element.quantity)
       formControls[`quantity_${element.articleId}`] = [Number(element.quantity)]; // Convert to number
     });
 
     this.quantityForm = this.fb.group(formControls);
-    console.log("quantityForm", this.quantityForm)
   }
 
   cancelConfirmation(): void {
     this.dialogRef.close(false);
   }
 
-  confirmValidation(): void {
+  confirmValidation(): void {  
+    this.saveForm();
     this.dialogRef.close(true);
   }
 
-  saveQuantity(element: any): void {
-    // Your saveQuantity logic here
+  saveForm(): void {
+    // Your save form logic here
+    // For example, if you want to update the orderDetails
+    this.order.orderDetails.forEach((element: any) => {
+      const formControlName = `quantity_${element.articleId}`;
+      const newQuantityValue = this.quantityForm.get(formControlName)?.value;
+  
+      // Set the newQuantity directly on the element
+      element.newQuantity = newQuantityValue;
+  
+      // Your additional save logic here, if needed
+      const { orderId, articleId, quantityToShow, newQuantity, quantity } = element;
+    });
   }
+  
+  
+  
 }
