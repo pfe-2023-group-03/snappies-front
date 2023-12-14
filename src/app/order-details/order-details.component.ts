@@ -134,6 +134,8 @@ export class OrderDetailsComponent implements OnInit {
       (response) => {
         this.orderState = 'done';
         this.changeDetectorRef.detectChanges();
+        const numDelivery = this.order.deliveryId;
+        this.navigationService.navigateTo('/delivery/' + numDelivery);
       },
       (error) => {
         console.error('Error updating order status:', error);
