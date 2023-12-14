@@ -41,8 +41,9 @@ export class DeliveriesformComponent implements OnInit {
     if (this.deliveriesForm.valid) {
       const deliveriesData = {
         title: this.deliveriesForm.value.title,
-        state: 'default'
+        state: 'preparation'
       };
+      // state est hardode ici
       this.deliveriesformService.postDeliveries(deliveriesData).subscribe((delivery) => {
         const listClientChoosen = this.deliveriesForm.value.clientlist;
         if (listClientChoosen) {
