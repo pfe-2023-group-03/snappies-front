@@ -8,6 +8,9 @@ import { NavigationService } from '../services/navigation.service';
 import { forkJoin } from 'rxjs';
 import { ordersDeliveryService } from '../ordersDelivery/ordersDelivery.service'
 
+import { MatDialog } from '@angular/material/dialog';
+import { OrderConfirmationDialogComponent } from '../order-confirmation-dialog/order-confirmation-dialog.component';
+
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
@@ -18,7 +21,8 @@ export class OrderDetailsComponent implements OnInit {
   isLoading: boolean = true;
   displayedColumns: string[] = ['name', 'quantity', 'actions'];
   articleNameMap: Map<number, string> = new Map();
-  orderState: string = '';
+  orderState: string = '';  
+  confirmationDialogOpen: boolean = false;
 
   private readonly API_URL = environment.apiUrl;
 
@@ -28,7 +32,8 @@ export class OrderDetailsComponent implements OnInit {
     private navigationService: NavigationService,
     private authService : AuthenticationService,
     private changeDetectorRef: ChangeDetectorRef,
-    private ordersdeliveryService: ordersDeliveryService
+    private ordersdeliveryService: ordersDeliveryService,
+    private dialog: MatDialog
   ) {}
 
   
@@ -51,7 +56,6 @@ export class OrderDetailsComponent implements OnInit {
           ([client, orderDetails]) => {
             this.order.client = client;
             this.order.orderDetails = orderDetails;
-            console.log('orderDetails', orderDetails);
 
             this.order.orderDetails.forEach((detail:any) => {
               detail.quantityToShow = detail.quantity + detail.surplusQuantity;
@@ -106,7 +110,6 @@ export class OrderDetailsComponent implements OnInit {
           const delivery = response;  
           if(delivery.state === 'preparation') {
             isPreparation = true;
-            console.log('isPreparation true : ',isPreparation);
             this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).subscribe(
               (reponse) =>{
                 this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).subscribe(
@@ -120,7 +123,6 @@ export class OrderDetailsComponent implements OnInit {
               }
             );
           }else{
-            console.log('isPreparation false : ',isPreparation);
             this.ordersdeliveryService.updateSurplusQuantity(deliveryId, articleId, quantityToAdd, isPreparation).subscribe(
               (reponse) => {
                 this.orderDetailsService.updateOrderDetails(orderId, articleId, quantityToAdd).subscribe(
@@ -151,18 +153,51 @@ export class OrderDetailsComponent implements OnInit {
     return user?.role === 'admin';
   }
 
+  openConfirmationDialog(): void {
+    this.confirmationDialogOpen = true;
+  }
+
+  cancelConfirmation(): void {
+    this.confirmationDialogOpen = false;
+  }
+
+  confirmValidation(): void {
+    this.confirmationDialogOpen = false;
+    this.changeStatusToDone();
+  }
+
   changeStatusToDone(): void {
-    this.orderDetailsService.updateOrderStatus(this.order).subscribe(
-      (response) => {
-        this.orderState = 'done';
-        this.changeDetectorRef.detectChanges();
-        const numDelivery = this.order.deliveryId;
-        this.navigationService.navigateTo('/delivery/' + numDelivery);
+    const dialogRef = this.dialog.open(OrderConfirmationDialogComponent, {
+      width: '400px',
+      data: {
+        order: this.order,
+        articleNameMap: this.articleNameMap,
       },
-      (error) => {
-        console.error('Error updating order status:', error);
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // User clicked "Valider" in the dialog
+        // Update the quantities in the order details
+        // TODO ICI
+        this.order.orderDetails.forEach((element: any) => {
+          this.saveQuantity(element);
+        });
+  
+        // Update the order status to 'done'
+        this.orderDetailsService.updateOrderStatus(this.order).subscribe(
+          (response) => {
+            this.orderState = 'done';
+            this.changeDetectorRef.detectChanges();
+            const numDelivery = this.order.deliveryId;
+            this.navigationService.navigateTo('/delivery/' + numDelivery);
+          },
+          (error) => {
+            console.error('Error updating order status:', error);
+          }
+        );
       }
-    );
+    });
   }
 
 }

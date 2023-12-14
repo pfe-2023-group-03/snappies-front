@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { OrderConfirmationDialogModule } from '../order-confirmation-dialog/order-confirmation-dialog.module';
 
 
 
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatButtonModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    OrderConfirmationDialogModule
   ],
   exports: [OrderDetailsComponent]
 })
