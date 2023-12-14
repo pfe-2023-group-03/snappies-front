@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { AuthenticationService } from '../authentication.service';
+import { NavigationService } from '../services/navigation.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-navbar',
@@ -7,12 +10,49 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  constructor(private router: Router) {}
+  constructor(private location: Location, private navigationService: NavigationService, private authService : AuthenticationService) {}
 
   ngOnInit(): void {}
 
   navigateTo(route: string): void {
-    this.router.navigate([route]);
+    this.navigationService.navigateTo(route);
+    this.closeSidenav();
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  logout(): void {
+    this.authService.signOut();
+    this.navigateTo('login');
+  }
+
+  isUserAdmin(): boolean {
+    console.log("isUserAdmin", this.authService.getUser());
+    const user = this.authService.getUser();
+    return user?.role === 'admin';
+  }
+
+  isUSerAuthorized(): boolean {
+    console.log("isUSerAuthorized", this.authService.getUser());
+    const user = this.authService.getUser();
+    return user?.role === 'admin' || user?.role === 'deliverer';
+  }
+
+  isConnect(): boolean {
+    return !this.authService.isLogged();
+  }
+
+  isDisconnect(): boolean {
+    return this.authService.isLogged();
+  }
+  
+  closeSidenav(): void {
+    if (this.sidenav) {
+      this.sidenav.close();
+    }
   }
 }

@@ -1,0 +1,110 @@
+  .title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 3%;
+    margin-bottom: 10%;
+  }
+  .delivery-state {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 3%;
+    text-align: center;
+  }
+  
+  .boxes {
+    padding: 15px;
+    border-radius: 5px;
+    
+  }
+  .surplus-boxes{
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  
+  .boxes, .surplus {
+    font-size: 15px;
+  }
+
+  .composition {
+    justify-self: end;
+  }
+  
+  .orders-container {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  
+  .order-item {
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    padding: 3%;
+    transition: background-color 0.3s;
+    display: block;
+  }
+  
+  .order-item:last-child {
+    border-bottom: none;
+  }
+  
+  .order-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10%;
+  }
+  
+  .order-state {
+    justify-self: end;
+  }
+
+  .delivery-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .center-container {
+    text-align: center;
+  }
+  
+  .state-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .state-panel {
+    margin-left: 10px; /* Ajustez la marge selon vos besoins */
+  }
+
+.panel-item {
+  box-sizing: border-box;
+}
+
+.panel-content button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 10%; /* Ajustez la valeur en fonction de vos préférences */
+  font: inherit;
+  color: inherit;
+  display: block; /* Permet au bouton de remplir la largeur du conteneur */
+}

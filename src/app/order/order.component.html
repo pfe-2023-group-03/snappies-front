@@ -1,0 +1,55 @@
+<h1 id="title">Ajouter une commande</h1>
+<div *ngIf="orderError" class="error-message">Il existe déja une livraison pour ce client</div>
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="centered-form">
+
+  <div class="form-field">
+    <mat-form-field>
+      <mat-label>Nom du client</mat-label>
+      <mat-select formControlName="clientId">
+        <mat-option *ngFor="let client of clientNames" [value]="client.id">
+          {{ client.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="orderForm.get('clientId')?.hasError('required')">Il faut un client</mat-error>
+    </mat-form-field>
+  </div>
+  
+  <div class="form-field">
+    <mat-form-field>
+      <mat-label>Livraison</mat-label>
+      <mat-select formControlName="deliveryId">
+        <mat-option *ngFor="let delivery of deliveries" [value]="delivery.id">
+          {{ delivery.title }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="orderForm.get('deliveryId')?.hasError('required')">Il faut une livraison</mat-error>
+    </mat-form-field>
+  </div>
+  
+    <div class="form-field">
+      <mat-form-field>
+        <mat-label>Article</mat-label>
+        <mat-select formControlName="articleId">
+          <mat-option *ngFor="let article of articles" [value]="article.id">
+            {{ article.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="orderForm.get('articleId')?.hasError('required')">Il faut un article</mat-error>
+      </mat-form-field>
+    </div>
+  
+    <div class="form-field">
+      <mat-form-field>
+        <mat-label>Quantitée</mat-label>
+        <input matInput type="number" formControlName="quantity">
+        <mat-error *ngIf="orderForm.get('quantity')?.hasError('required')">Il faut une quantitée</mat-error>
+        <mat-error *ngIf="orderForm.get('quantity')?.hasError('min')">Une quantitée minimum de 1</mat-error>
+      </mat-form-field>
+    </div>
+  
+    <div class="form-field">
+      <button mat-raised-button color="primary" type="submit" [disabled]="orderForm.invalid">Ajouter</button>
+    </div>
+  
+  </form>
+  

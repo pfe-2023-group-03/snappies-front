@@ -1,0 +1,46 @@
+<div class="center-text">
+    <h2 class="title">Bonjour {{ getUserName() }}</h2>
+
+    <div class="div-panel">
+        <mat-expansion-panel class="panel-item">
+            <mat-expansion-panel-header>
+            <mat-panel-title>Tournées</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="panel-content">
+                <button class="button-admin" mat-raised-button color="primary" (click)="navigateTo('/')">Liste des Tournées</button>
+                <button class="button-admin" mat-raised-button color="primary" (click)="navigateTo('/create-delivery')">Créer une tournée</button>
+                <button class="button-admin" mat-raised-button color="primary" (click)="navigateTo('/')">Gérer les tournées</button> 
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="panel-item">
+            <mat-expansion-panel-header>
+            <mat-panel-title>Utilisateurs</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="panel-content">
+                <button class="button-admin" mat-raised-button color="primary" (click)="navigateTo('/users')">Liste des utilisateurs</button>
+                <button class="button-admin" mat-raised-button color="primary" (click)="navigateTo('/create-user')">Ajouter un utilisateur</button> 
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="panel-item">
+            <mat-expansion-panel-header>
+            <mat-panel-title>Clients</mat-panel-title> 
+            </mat-expansion-panel-header>       
+            <div class="panel-content">
+                <button class="button-admin" mat-raised-button color="primary" (click)="navigateTo('/clients')">Liste des clients</button>
+                <button class="button-admin" mat-raised-button color="primary" (click)="navigateTo('/create-client')">Ajouter un client</button>
+            </div>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel class="panel-item">
+            <mat-expansion-panel-header>
+            <mat-panel-title>Commandes</mat-panel-title> 
+            </mat-expansion-panel-header>       
+            <div class="panel-content">
+                <button class="button-admin" mat-raised-button color="primary" (click)="navigateTo('/order')">Créer une commande</button>
+            </div>
+        </mat-expansion-panel>
+    </div>
+</div>

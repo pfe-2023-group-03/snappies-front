@@ -1,0 +1,21 @@
+  <h1 class="title">Toutes les tournées</h1>
+
+  <div class="deliveries-container">
+    <div *ngFor="let delivery of deliveries" class="delivery-item">
+      <div class="delivery-header">
+        <span class="delivery-title" (click)="navigateTo('/delivery/' + delivery.id)">{{ delivery.title }}</span>
+        <span class="delivery-state" [ngClass]="{
+          'preparation': delivery.state === 'preparation',
+          'delivery': delivery.state === 'delivery',
+          'finished': delivery.state === 'finished'
+        }">{{ delivery.state }}</span>
+        <span *ngIf="!isAdmin()">
+          <button mat-button color="primary" (click)="assignDelivery(delivery)">Prendre</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <button mat-fab color="primary" (click)="onFabClick()" *ngIf="!isAdmin()">
+    <mat-icon>task_alt</mat-icon>
+  </button>

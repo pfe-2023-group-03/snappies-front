@@ -1,0 +1,65 @@
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 3%;
+  margin-bottom: 10%;
+}
+
+.deliveries-container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.delivery-item {
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  padding: 3%;
+  transition: background-color 0.3s;
+  display: block;
+}
+
+.delivery-item:last-child {
+  border-bottom: none;
+}
+
+.delivery-item:hover {
+  background-color: #f0f0f0;
+}
+
+.delivery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delivery-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.delivery-state {
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.preparation {
+  color: red;
+}
+
+.delivery {
+  color: blue;
+}
+
+.finished {
+  color: green;
+}
+
+.mat-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}

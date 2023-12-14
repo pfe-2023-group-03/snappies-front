@@ -1,0 +1,16 @@
+#title {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#clients {
+    margin-top: 20px;
+}
+
+.mat-cell {
+    padding: 5%;
+}
+
+.mat-header-cell {
+    text-align: center;
+}

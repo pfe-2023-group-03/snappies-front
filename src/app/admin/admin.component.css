@@ -1,0 +1,28 @@
+.center-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 3%;
+  margin-bottom: 10%;
+}
+
+.panel-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-item {
+  margin-bottom: 10%;
+}
+
+.button-admin {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}

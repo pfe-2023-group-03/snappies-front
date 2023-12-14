@@ -1,0 +1,48 @@
+<!-- order-confirmation-dialog.component.html -->
+
+<h1 mat-dialog-title>Confirmation de la commande</h1>
+<div mat-dialog-content>
+  <p>Voulez-vous vraiment valider la commande?</p>
+</div>
+
+<div *ngIf="order">
+  <form [formGroup]="quantityForm">
+    <table mat-table [dataSource]="order.orderDetails" class="order-detail-table">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nom </th>
+        <td mat-cell *matCellDef="let element"> {{ articleNameMap.get(element.articleId)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Caisses </th>
+        <td mat-cell *matCellDef="let element">
+            <div class="quantity-container">
+                <mat-form-field appearance="fill">
+                  <input matInput type="number" formControlName="{{'quantity_' + element.articleId}}" class="small-input" />
+                </mat-form-field>
+            </div>              
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div mat-dialog-actions class="dialog-actions">
+      <span class="spacer"></span>
+
+      <button mat-button class="thumb-button" (click)="confirmValidation()" [mat-dialog-close]="true" cdkFocusInitial>
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+
+      <span class="spacer"></span>
+
+      <button mat-button class="thumb-button" [mat-dialog-close]="false">
+        <mat-icon>thumb_down</mat-icon>
+      </button>
+
+      <span class="spacer"></span>
+    </div>
+  </form>
+</div>

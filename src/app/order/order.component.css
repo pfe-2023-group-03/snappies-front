@@ -1,0 +1,16 @@
+.centered-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+
+#title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 3%;
+    margin-top: 15%;
+    margin-bottom: 5%;
+}
