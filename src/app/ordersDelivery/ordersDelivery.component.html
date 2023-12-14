@@ -1,4 +1,7 @@
-<h1 *ngIf="delivery" class="title">{{delivery.title}}</h1>
+<div class="title">
+  <h1 *ngIf="delivery">{{delivery.title}}</h1>
+  <h2 *ngIf="delivery?.user">Livraison par: {{delivery.user.firstname}}</h2>
+</div>
 
 <div *ngIf="delivery" class="delivery-state">
   <div class="center-container">
